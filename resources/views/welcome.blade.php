@@ -11,10 +11,9 @@
   <title>CHE²-Conseil étudiant</title>
 
   <!-- Bootstrap core CSS -->
-  <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
 
   <!-- Custom fonts for this template -->
-  <link href="{{ asset('css/all.min.css') }}" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
   <link href='https://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css'>
   <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
@@ -46,9 +45,14 @@
           <li class="nav-item">
             <a class="nav-link js-scroll-trigger" href="#about">Nos missions</a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" href="{{ url('/post') }}"> Plate-forme </a>
 
           <li class="nav-item">
             <a class="nav-link js-scroll-trigger" href="#contact">Contact</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" href="{{ url('/login') }}">Connexion</a>
           </li>
         </ul>
       </div>
@@ -118,7 +122,7 @@
                 <i class="fas fa-plus fa-3x"></i>
               </div>
             </div>
-            <img class="img-fluid" src="{{ asset('img/photo/24hChe2.jpg') }}" alt="">
+            <img class="img-fluid" src="{{ asset('img/24hChe2.jpg') }}" alt="">
           </a>
           <div class="portfolio-caption">
             <h4>24h vélo</h4>
@@ -178,6 +182,7 @@
             <ul class="timeline">
               <li>
                 <div class="timeline-image">
+                    <img class="rounded-circle img-fluid" src="{{ asset('/img/téléchargement.png') }}" alt="logo che2">
                 </div>
                 <div class="timeline-panel">
                   <div class="timeline-heading">
@@ -190,6 +195,8 @@
               </li>
               <li class="timeline-inverted">
                 <div class="timeline-image">
+
+                    <img class="rounded-circle img-fluid" src="{{ asset('/img/téléchargement.png') }}" alt="logo che2">
                 </div>
                 <div class="timeline-panel">
                   <div class="timeline-heading">
@@ -204,6 +211,7 @@
               </li>
               <li>
                 <div class="timeline-image">
+                    <img class="rounded-circle img-fluid" src="{{ asset('/img/téléchargement.png') }}" alt="logo che2">
                 </div>
                 <div class="timeline-panel">
                   <div class="timeline-heading">
@@ -230,7 +238,8 @@
       </div>
       <div class="row">
         <div class="col-lg-12">
-        {!! Form::open(['url' => 'contact']) !!}
+        {!! Form::open(['route' => 'welcome.contact']) !!}
+        {{csrf_field()}}
             <div class="row">
               <div class="col-md-6">
                 <div class="form-group {!! $errors->has('nom') ? 'has-error' : '' !!}">
@@ -239,7 +248,7 @@
                   <p class="help-block text-danger"></p>
                 </div>
                 <div class="form-group {!! $errors->has('prenom') ? 'has-error' : '' !!}">
-                 {!! Form::text('nom', null, ['class' => 'form-control', 'placeholder' => 'Votre prénom']) !!}
+                 {!! Form::text('prenom', null, ['class' => 'form-control', 'placeholder' => 'Votre prénom']) !!}
             {!! $errors->first('prenom', '<small class="help-block">:message</small>') !!}
                   <p class="help-block text-danger"></p>
                 </div>

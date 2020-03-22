@@ -11,9 +11,16 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'ViewController@getview');
+Route::get('/welcome','ViewController@getAcc')->name('welcome');
+Route::post('/welcome', 'ViewController@postForm')->name('welcome.contact');
+Route::view('/plateforme', 'plateforme');
+Route::get('/profil', 'ChangerPasswordController@index');
+Route::post('/profil', 'ChangerPasswordController@store')->name('change.password');
+Auth::routes();
 
-Route::get('contact', 'ContactController@getForm');
-Route::post('contact', 'ContactController@postForm');
+Route::get('/home', 'HomeController@index')->name('home');
+
+
+Route::resource('post', 'PostController', ['except' => ['show', 'edit', 'update']]);
+
