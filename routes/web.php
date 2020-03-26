@@ -21,6 +21,11 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+Route::get('/download/{file}', function ($file='') {
+    return response()->download(storage_path('app/public/'.$file));
+});
 
 Route::resource('post', 'PostController', ['except' => ['show', 'edit', 'update']]);
+
+
 

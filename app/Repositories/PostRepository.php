@@ -23,6 +23,7 @@ class PostRepository
 
 	public function store($inputs)
 	{
+
 		$this->post->create($inputs);
 	}
 

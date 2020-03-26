@@ -25,7 +25,8 @@ class PostRequest extends FormRequest
     {
         return [
 			'Titre' => 'required|max:80',
-			'Description' => 'required'
+            'Description' => 'required',
+            'Nom_doc' => 'mimes:doc,docx,pdf'
 		];
     }
 }
