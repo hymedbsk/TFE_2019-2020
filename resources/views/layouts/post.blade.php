@@ -22,7 +22,7 @@
   <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css'>
 
   <!-- Custom styles for this template -->
-  <link href="{{ asset('css/auth.css') }}" rel="stylesheet">
+  <link href="{{ asset('css/log.css') }}" rel="stylesheet">
 
 </head>
 
@@ -40,10 +40,10 @@
         <ul class="navbar-nav text-uppercase ml-auto">
 
           <li class="nav-item">
-            <a class="nav-link js-scroll-trigger" href="{{ asset('/plateforme') }}"> Plate-forme </a>
+            <a class="nav-link js-scroll-trigger" href="{{ asset('/post') }}"> Plate-forme </a>
 
           <li class="nav-item">
-            <a class="nav-link js-scroll-trigger" href="#contact">Contact</a>
+            <a class="nav-link js-scroll-trigger" href="{{ asset('/#contact') }}">Contact</a>
           </li>
           @guest
           <li class="nav-item">
@@ -53,7 +53,7 @@
         </ul>
         @if(Auth::check())
                 <a id="navbarDropdown" class="nav-link dropdown-toggle text-uppercase"  href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                    {{ Auth::user()->name }} <span class="caret"></span>
+                    {{ Auth::user()->nom }} <span class="caret"></span>
                 </a>
 
                     <div class="dropdown-menu dropdown-menu-right animate slideIn" aria-labelledby="navbarDropdown">
@@ -61,7 +61,13 @@
                             <a class=" dropdown-item " href="{{ url('/profil') }}">
                                  <p>  Mon profil </p>
                              </a>
+                             <a class=" dropdown-item " href="{{ url('/user') }}">
+                                <p>  Gestion des utilisateurs </p>
+                            </a>
 
+                             <a class=" dropdown-item nav-item " href="{{ url('/post/create') }}" >
+                                <p>  Ajouter une annonce  </p>
+                            </a>
                             <a class="dropdown-item" href="{{ route('logout') }}"
                                  onclick="event.preventDefault();
                                  document.getElementById('logout-form').submit();">

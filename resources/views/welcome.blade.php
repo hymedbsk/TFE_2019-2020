@@ -36,26 +36,64 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav text-uppercase ml-auto">
+            @guest
           <li class="nav-item">
             <a class="nav-link js-scroll-trigger" href="#services">Nos partenaires</a>
           </li>
           <li class="nav-item">
             <a class="nav-link js-scroll-trigger" href="#portfolio">Photos</a>
           </li>
+
           <li class="nav-item">
             <a class="nav-link js-scroll-trigger" href="#about">Nos missions</a>
           </li>
+          @endguest
           <li class="nav-item">
             <a class="nav-link js-scroll-trigger" href="{{ url('/post') }}"> Plate-forme </a>
 
           <li class="nav-item">
             <a class="nav-link js-scroll-trigger" href="#contact">Contact</a>
           </li>
+          @guest
           <li class="nav-item">
             <a class="nav-link js-scroll-trigger" href="{{ url('/login') }}">Connexion</a>
           </li>
+          @endguest
+
+
+
+
         </ul>
       </div>
+      @if(Auth::check())
+      <a id="navbarDropdown" class="nav-link dropdown-toggle text-uppercase"  href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+          {{ Auth::user()->nom }} <span class="caret"></span>
+      </a>
+
+          <div class="dropdown-menu dropdown-menu-right animate slideIn" aria-labelledby="navbarDropdown">
+
+                  <a class=" dropdown-item " href="{{ url('/profil') }}">
+                       <p>  Mon profil </p>
+                   </a>
+                   <a class=" dropdown-item " href="{{ url('/user') }}">
+                      <p>  Gestion des utilisateurs </p>
+                  </a>
+
+                   <a class=" dropdown-item nav-item " href="{{ url('/post/create') }}" >
+                      <p>  Ajouter une annonce  </p>
+                  </a>
+                  <a class="dropdown-item" href="{{ route('logout') }}"
+                       onclick="event.preventDefault();
+                       document.getElementById('logout-form').submit();">
+                              {{ __('Logout') }}
+                  </a>
+
+
+                  <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                      @csrf
+                  </form>
+              </div>
+              @endif
     </div>
   </nav>
 
@@ -101,6 +139,22 @@
           <h4 class="service-heading">Mezzo Bar</h4>
           <p class="text-muted"><img class="img-fluid" src="{{ asset('img/partenaires/mezzo.jpeg') }}" alt="mezzo"></p>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="page-section" id="plateforme">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <h2 class="section-heading text-uppercase">Plate-forme du CHE²</h2>
+              <h3 class="section-subheading text-muted"></h3>
+            </div>
+          </div>
+        <div class="row">
+
+          <div class="col-lg-12">
+            La plateforme du CHE² te permet de partager tout les documents (synthèses, plan de cours, TP, etc) de ta section pour aider
       </div>
     </div>
   </section>
@@ -268,6 +322,7 @@
               <div class="clearfix"></div>
               <div class="col-lg-12 text-center">
                 <div id="success"></div>
+               {!! NoCaptcha::display() !!}
                {!! Form::submit('Envoyer !', ['class' => 'btn btn-primary btn-xl text-uppercase']) !!}
         {!! Form::close() !!}
               </div>
@@ -328,7 +383,7 @@
   <!-- Plugin JavaScript -->
   <script src="{{ asset('/js/jquery-easing/jquery.easing.min.js') }}"></script>
 
-
+  <script src = 'https: //www.google.com/recaptcha/api.js'> </script>
 
   <!-- Custom scripts for this template -->
   <script src="{{ asset('/js/agency.min.js') }}"></script>

@@ -11,6 +11,7 @@ class User extends Authenticatable
     use Notifiable;
 
     protected $table = "users";
+    public $primaryKey = 'User_id';
     /**
      * The attributes that are mass assignable.
      *
@@ -38,6 +39,7 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
 
     public function posts(){
 

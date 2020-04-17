@@ -9,14 +9,14 @@ class Post extends Model{
     protected $table = 'post';
     protected $primary_key = 'Post_id';
     protected $foreign_key = 'User_id';
-
+    protected $dates = ['Date'];
     protected $fillable = ['User_id','Titre','Description', 'Bac','Option_Nom','Nom_doc'];
 
 	public function user(){
 		return $this->belongsTo('App\User','User_id');
 	}
     //
-    protected $dates = ['Date'];
+
     public function setUpdatedAtAttribute($value){
         // to Disable updated_at
         }
