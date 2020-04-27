@@ -1,4 +1,4 @@
-@extends('layouts.log')
+@extends('layouts.auth')
 
 @section('content')
 
@@ -10,7 +10,7 @@
                         <div class="card">
                             <div class="card-header">
 
-                                <p>  <img src="{{ asset('/img/che2Head.png') }}" alt="logo che2"></p>
+                                <p>  <img src="{{ asset('/img/CHE2-150x75.png') }}" alt="logo che2"></p>
                                 Déjà un compte ? Connecte toi <a href="{{ url('/login') }}"> ici </a> </div>
 
                             <div class="card-body">
@@ -21,7 +21,7 @@
                             <label for="matricule" class="col-md-4 col-form-label text-md-right">Matricule</label>
 
                             <div class="col-md-6">
-                                <input id="matricule" type="text" class="form-control @error('matricule') is-invalid @enderror" name="matricule" value="{{ old('matricule') }}" required autocomplete="matricule" autofocus max="8">
+                                <input id="matricule" type="text" class="form-control @error('matricule') is-invalid @enderror" name="matricule" value="{{ old('matricule') }}" required autocomplete="matricule" autofocus max="8" style="text-transform:uppercase">
 
                                 @error('matricule')
                                     <span class="invalid-feedback" role="alert">
@@ -94,11 +94,21 @@
                                 <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
                             </div>
                         </div>
-
+			<div class="form-group row">
+			 <div class="col-md-6 offset-md-4">
+                                                <div class="g-recaptcha" data-sitekey="{{env('CAPTCHA_KEY')}}">
+                                                </div>
+                                                @if($errors->has('g-recaptcha-response'))
+                                                    <span class="invalid-feedback" styles="display:block">
+                                                        <strong> {{$errors->first('g-recaptcha-response')}} </strong>
+                                                    </span>
+                                                @endif
+                                            </div>
+			</div>
                         <div class="form-group row mb-0">
-                            <div class="col-md-6 offset-md-4">
+                            <div class="col-md-6 offset-md-3">
                                 <button type="submit" class="btn btn-primary">
-                                    {{ __('Register') }}
+                                    S'inscrire
                                 </button>
                             </div>
                         </div>
@@ -112,3 +122,4 @@
 </header>
 
 @endsection
+

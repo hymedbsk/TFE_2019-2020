@@ -1,13 +1,19 @@
-@extends('layouts.app')
+@extends('layouts.auth')
 
 @section('content')
-<div class="container">
+
+
+<header class="masthead">
+    <div class="intro-text">
+<div class="container-fluid">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ __('Verify Your Email Address') }}</div>
+                <div class="card-header">
+		
+			  <p>  <img src="{{ asset('/img/CHE2-500x250.png') }}" alt="logo che2"></p>
+			{{ __('Verify Your Email Address') }}
 
-                <div class="card-body">
                     @if (session('resent'))
                         <div class="alert alert-success" role="alert">
                             {{ __('A fresh verification link has been sent to your email address.') }}
@@ -21,4 +27,6 @@
         </div>
     </div>
 </div>
+</div>
+</header>
 @endsection

@@ -19,10 +19,10 @@
   <link href='https://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css'>
   <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
   <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css'>
-
+  <script src="https://www.google.com/recaptcha/api.js"></script>
   <!-- Custom styles for this template -->
-  <link href="{{ asset('css/auth.css') }}" rel="stylesheet">
-
+  <link href="{{ asset('css/log.css') }}" rel="stylesheet">
+  
 </head>
 
 <body id="page-top">
@@ -39,10 +39,10 @@
         <ul class="navbar-nav text-uppercase ml-auto">
 
           <li class="nav-item">
-            <a class="nav-link js-scroll-trigger" href="{{ asset('/plateforme') }}"> Plate-forme </a>
+            <a class="nav-link js-scroll-trigger" href="{{ asset('/post') }}"> Plateforme </a>
 
           <li class="nav-item">
-            <a class="nav-link js-scroll-trigger" href="#contact">Contact</a>
+            <a class="nav-link js-scroll-trigger" href="{{ asset('/#contact') }}">Contact</a>
           </li>
           @guest
           <li class="nav-item">
@@ -60,7 +60,18 @@
                             <a class=" dropdown-item " href="{{ url('/profil') }}">
                                  <p>  Mon profil </p>
                              </a>
-
+				<a class=" dropdown-item " href="{{ url('/home') }}">
+                                 <p>  Home </p>
+                             </a>
+				@if(Auth::user()->membre==1)
+                             <a class=" dropdown-item " href="{{ url('/user') }}">
+                                <p>  Gestion des utilisateurs </p>
+                            </a>
+				@endif
+                             <a class=" dropdown-item nav-item " href="{{ url('/post/create') }}" >
+                                <p>  Ajouter une annonce  </p>
+                            </a>
+				
                             <a class="dropdown-item" href="{{ route('logout') }}"
                                  onclick="event.preventDefault();
                                  document.getElementById('logout-form').submit();">
@@ -94,3 +105,4 @@
   <script src="{{ asset('/js/agency.min.js') }}"></script>
 </body>
 </html>
+

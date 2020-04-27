@@ -2,11 +2,14 @@
 
 @section('content')
 
-<section class="masthead" >
+<header class="masthead">
+	<div class="intro-text">
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-6">
                 <h2> Vos informations personnelles </h2>
+		
+	<div class="container">
                 <div class="card">
                     <div class="card-header">
                        <p class="text-center"> <img class="img-fluid-center" src="{{ asset('img/che2head.png') }}" alt="Logo CHE2"></p>
@@ -23,10 +26,10 @@
  </div>
 
  <div class="form-group">
-      <label for="name" class=" col-form-label text-md-right"> Matricule </label>
+      <label for="name" class=" col-form-label text-md-right strong"> Matricule </label>
 
 
-<input id="pseudo" type="text" class="form-control @error('name') is-invalid @enderror" name="pseudo" value="<?php echo Auth::user()->pseudo ?>"
+<input id="pseudo" type="text" class="form-control @error('name') is-invalid @enderror" name="pseudo" value="<?php echo Auth::user()->matricule ?>"
 autocomplete="name" autofocus readonly>
 
                                 @error('name')
@@ -67,20 +70,26 @@ autocomplete="name" autofocus readonly>
                                 <input id="new_confirm_password" type="password" class="form-control" name="new_confirm_password" autocomplete="current-password">
 
                         </div>
-
+			
                         <div class="form-group row mb-0">
-                            <div class="col-md-8 offset-md-4">
+				<div class="col-md-12">
+				@include('message')
+				</div>
+                            <div class="col-md-8 offset-md-3">
+				
                                 <button type="submit" class="btn btn-primary">
-                                    Update Password
+                                    Mettre à jour le mot de passe
                                 </button>
                             </div>
                         </div>
+			
                     </form>
                 </div>
             </div>
             </div>
         </div>
-
-        </section>
+	</div>
+	</div>
+        </header>
 @endsection
 

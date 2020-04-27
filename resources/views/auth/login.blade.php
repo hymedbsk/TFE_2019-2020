@@ -1,8 +1,8 @@
-@extends('layouts.log')
+@extends('layouts.auth')
 
 @section('content')
 
-<<header class="masthead">
+<header class="masthead">
     <div class="intro-text">
 
                 <div class="container">
@@ -11,8 +11,8 @@
                         <div class="card">
                             <div class="card-header">
 
-                                <p>  <img src="{{ asset('/img/che2Head.png') }}" alt="logo che2"></p>
-                                Pas encore de compte ? Crée-le <a href="{{ url('/register') }}"> ici </a>
+                                <p>  <img src="{{ asset('/img/CHE2-150x75.png') }}" alt="logo che2"></p>
+                                Pas encore de compte ?<a href="{{ url('/register') }}"> Crée-le  ici </a>
                             </div>
 
 
@@ -83,3 +83,4 @@
 
 </header>
 @endsection
+

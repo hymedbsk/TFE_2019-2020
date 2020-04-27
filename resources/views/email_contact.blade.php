@@ -4,7 +4,7 @@
     <meta charset="utf-8">
   </head>
   <body>
-    <h2>Prise de contact pour Ephec Entreprendre</h2>
+    <h2>Prise de contact pour le CHE²</h2>
 
     <ul>
       <li><strong>Nom</strong> : {{ $nom }}</li>
@@ -14,3 +14,4 @@
     </ul>
   </body>
 </html>
+

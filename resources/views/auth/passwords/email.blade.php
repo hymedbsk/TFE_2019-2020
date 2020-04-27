@@ -1,11 +1,16 @@
-@extends('layouts.app')
+@extends('layouts.auth')
 
 @section('content')
+<header  class="masthead">
+<div class="intro-text">
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ __('Reset Password') }}</div>
+                <div class="card-header"> 
+			<h3>{{ __('Reset Password') }}</h3>
+		 <p>  <img src="{{ asset('/img/che2head.png') }}" alt="logo che2"></p>
+		</div>
 
                 <div class="card-body">
                     @if (session('status'))
@@ -44,4 +49,6 @@
         </div>
     </div>
 </div>
+</div>
+</header>
 @endsection
