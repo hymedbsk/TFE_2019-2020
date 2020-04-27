@@ -80,7 +80,7 @@ return [
     |
     */
 
-    'locale' => 'en',
+    'locale' => 'fr',
 
     /*
     |--------------------------------------------------------------------------
@@ -160,6 +160,7 @@ return [
         Illuminate\Session\SessionServiceProvider::class,
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
+      //  Anhskohbo\NoCaptcha\NoCaptchaServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
 
         /*
@@ -214,6 +215,7 @@ return [
         'Password' => Illuminate\Support\Facades\Password::class,
         'Queue' => Illuminate\Support\Facades\Queue::class,
         'Redirect' => Illuminate\Support\Facades\Redirect::class,
+        'NoCaptcha' => Anhskohbo\NoCaptcha\Facades\NoCaptcha::class, //No-Captcha
         'Redis' => Illuminate\Support\Facades\Redis::class,
         'Request' => Illuminate\Support\Facades\Request::class,
         'Response' => Illuminate\Support\Facades\Response::class,
