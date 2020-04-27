@@ -1,17 +1,21 @@
 <?php
 
 namespace App;
-
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
     use Notifiable;
 
-    protected $table = "users";
-    /**
+	 use SoftDeletes;
+    const DELETED_AT = 'date_supp';
+    protected $table = 'users';
+    protected $primaryKey = 'id'; 
+       
+ /**
      * The attributes that are mass assignable.
      *
      * @var array

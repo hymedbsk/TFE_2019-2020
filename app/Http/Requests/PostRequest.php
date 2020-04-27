@@ -23,9 +23,9 @@ class PostRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-			'Titre' => 'required|max:80',
-            'Description' => 'required',
+          return [
+			'Titre' => 'required|max:100',
+            'Description' => 'required|max:200',
             'Nom_doc' => 'mimes:doc,docx,pdf'
 		];
     }
