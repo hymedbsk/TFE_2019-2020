@@ -9,12 +9,11 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 class User extends Authenticatable implements MustVerifyEmail
 {
     use Notifiable;
-
 	 use SoftDeletes;
     const DELETED_AT = 'date_supp';
     protected $table = 'users';
-    protected $primaryKey = 'id'; 
-       
+    protected $primaryKey = 'User_id';
+
  /**
      * The attributes that are mass assignable.
      *
@@ -49,7 +48,10 @@ class User extends Authenticatable implements MustVerifyEmail
     return $this->hasMany('App\Post');
     }
 
-
+    public function roles()
+    {
+        return $this->belongsToMany('App\Role');
+    }
     public function setUpdatedAtAttribute($value){
     // to Disable updated_at
     }
