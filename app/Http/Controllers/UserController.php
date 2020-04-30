@@ -18,7 +18,11 @@ class UserController extends Controller
 
     public function __construct(UserRepository $userRepository)
 	{
-		$this->userRepository = $userRepository;
+        $this->userRepository = $userRepository;
+        $this->middleware('auth');
+        $this->middleware('president');
+        $this->middleware('superadmin');
+        $this->middleware('admin');
 	}
 
 	public function index()
@@ -36,10 +40,10 @@ class UserController extends Controller
 	}
 	public function check (User $user){
 		 $userToValid = $user;
-                                                                                                                               
-		 User::where('id','=', $userToValid->id)->update(['compte_check'=> 1]);                                                    
-		 Session::flash('message', 'Utilisateur mis    jour');                                                                
-		return redirect('verification');                                                                                 
+
+		 User::where('id','=', $userToValid->id)->update(['compte_check'=> 1]);
+		 Session::flash('message', 'Utilisateur mis    jour');
+		return redirect('verification');
 	}
 	public function create()
 	{
@@ -54,7 +58,7 @@ class UserController extends Controller
 
 		return redirect('user')->withOk("L'utilisateur " . $user->name . " a été créé.");
 	}
-	
+
 	public function show($id)
 	{
 		$user = $this->userRepository->getById($id);
@@ -71,11 +75,11 @@ class UserController extends Controller
 
 	public function update(UserUpdateRequest $request, $id)
 	{
-		
+
 
 		$this->userRepository->update($id, $request->all());
 		  return redirect('user');
-		
+
 	}
 
 	public function destroy($id)
@@ -87,11 +91,11 @@ class UserController extends Controller
 
 	public function admin(User $user){
        		 $userToValid = $user;
-        
+
         	User::where('id','=', $userToValid->id)->update(['membre'=> 1]);
 		Session::flash('message','Utilisateur mis à jour');
        		 return redirect('user');
-    
+
 	}
 
 	public function delAdmin(User $user){

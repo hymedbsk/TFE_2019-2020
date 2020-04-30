@@ -21,7 +21,11 @@ class RoleController extends Controller
 
     public function __construct(UserRepository $userRepository)
 	{
-		$this->userRepository = $userRepository;
+        $this->userRepository = $userRepository;
+
+        $this->middleware('auth');
+        $this->middleware('president');
+        $this->middleware('superadmin');
 	}
     public function index()
     {
