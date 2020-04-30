@@ -9,7 +9,7 @@ use App\Role;
 use Illuminate\Http\Request;
 use App\Http\Requests\RoleRequest;
 use Illuminate\Support\Facades\Validator;
-
+use App\Http\Requests\TeRequests;
 
 class RoleController extends Controller
 {
@@ -53,14 +53,29 @@ class RoleController extends Controller
     public function show()
     {
         $roles = Role::all();
+        $users = $this->userRepository->getPaginate($this->nbrPerPage);
 
-        return view('role.role', compact('roles'));
+        return view('role.role', compact('roles','links'));
     }
 
-    public function change($id){
-        $user = Crypt::decrypt($id);
+    public function change(TeRequests $request, $id){
 
-        echo($user);
+
+            $User = User::find($id);
+            $Roles = Role::find($request);
+            $User->roles()->syncWithoutDetaching($Roles);
+            $users = $this->userRepository->getPaginate($this->nbrPerPage);
+            $links = $users->render();
+
+            return redirect('role')->with('message', 'Utilisateur mis à jour', 'links', $links);
+
+
+        /*$role_id = $request->input('role');
+
+        echo($role_id );*/
+
+
+
     }
     public function edit(){
 
@@ -90,4 +105,14 @@ class RoleController extends Controller
         return redirect(route('role.show'));
 
    }
+
+   public function delete($id){
+
+    $user = User::findOrFail($id);
+
+    $user->roles()->detach();
+
+    return redirect(route('role.index'));
+
+}
 }
