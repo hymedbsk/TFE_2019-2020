@@ -7,7 +7,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Response;
 use App\User;
-class Admin
+class SuperAdmin
 {
     /**
      * Handle an incoming request.
@@ -22,7 +22,7 @@ class Admin
 
             // do something with role here
 
-        if ($user->roles=='Administrateur'){
+        if ($user->roles=='Super Admin'){
 			return $next($request);
 
     }

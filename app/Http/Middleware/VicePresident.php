@@ -7,7 +7,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Response;
 use App\User;
-class Admin
+class VicePresident
 {
     /**
      * Handle an incoming request.
@@ -22,10 +22,10 @@ class Admin
 
             // do something with role here
 
-        if ($user->roles=='Administrateur'){
+        if ($user->roles=='Vice-Président'){
 			return $next($request);
 
     }
-		return new RedirectResponse(url('/'));
+		return new RedirectResponse(url('post'));
     }
 }
