@@ -9,7 +9,7 @@ class Gain extends Model
 {
     protected $table = 'gain';
     protected $primaryKey = 'id';
-    protected $fillable = ['id','qte','User_id','budg_id','description','date_cree','date_supp'];
+    protected $fillable = ['id','libelle','montant','User_id','budg_id','description','date_cree','date_supp'];
     const CREATED_AT = "date_cree";
     use SoftDeletes;
     const DELETED_AT = 'date_supp';
@@ -22,5 +22,7 @@ class Gain extends Model
     public function users(){
 		return $this->belongsTo('App\User','User_id');
 	}
-
+    public function setUpdatedAtAttribute($value){
+        // to Disable updated_at
+    }
 }
