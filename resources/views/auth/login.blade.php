@@ -1,8 +1,8 @@
-@extends('layouts.log')
+@extends('layouts.auth')
 
 @section('content')
 
-<<header class="masthead">
+<header class="masthead">
     <div class="intro-text">
 
                 <div class="container">
@@ -11,9 +11,9 @@
                         <div class="card">
                             <div class="card-header">
 
-                                <p>  <img src="{{ asset('/img/che2Head.png') }}" alt="logo che2"></p>
-                                Pas encore de compte ? Crée-le <a href="{{ url('/register') }}"> ici </a>
-                            </div>
+                             <strong>   <p>  <img src="{{ asset('/img/CHE2-150x75.png') }}" alt="logo che2"></p>
+                                Pas encore de compte ?<a href="{{ url('/register') }}"> Crée-le  ici </a>
+                            </div></strong>
 
 
                             <div class="card-body">
@@ -21,21 +21,23 @@
                                     @csrf
 
                                         <div class="form-group row">
-                                            <label for="email" class="col-md-4 col-form-label text-md-right">Email</label>
+                                           <label for="email" class="col-md-4 col-form-label text-md-right">Email</label> 
 
                                             <div class="col-md-6">
                                                 <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
 
-                                                @error('email')
-                                                    <span class="invalid-feedback" role="alert">
-                                                        <strong>{{ $message }}</strong>
-                                                    </span>
-                                                @enderror
+                                                @if($errors->any())
+   <ul class="alert alert-danger">
+      @foreach ($errors->all() as $error)
+           <li >{{ $error }}</li>
+       @endforeach
+    </ul>
+@endif 
                                             </div>
                                         </div>
 
                                         <div class="form-group row">
-                                            <label for="password" class="col-md-4 col-form-label text-md-right">Mot de passe</label>
+                                           <label for="password" class="col-md-4 col-form-label text-md-right">Mot de passe</label>
 
                                             <div class="col-md-6">
                                                 <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
@@ -53,9 +55,9 @@
                                                 <div class="form-check">
                                                     <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
 
-                                                    <label class="form-check-label" for="remember">
+                                                   <strong> <label class="form-check-label" for="remember">
                                                         Se souvenir de moi
-                                                    </label>
+                                                    </label></strong>
                                                 </div>
                                             </div>
                                         </div>
@@ -68,7 +70,7 @@
 
                                                 @if (Route::has('password.request'))
                                                     <a class="btn btn-link" href="{{ route('password.request') }}">
-                                                       Mot de passe oublier ?
+                                                       Mot de passe oublié ?
                                                     </a>
                                                 @endif
                                             </div>
@@ -83,3 +85,5 @@
 
 </header>
 @endsection
+
+

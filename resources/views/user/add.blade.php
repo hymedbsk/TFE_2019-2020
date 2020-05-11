@@ -1,4 +1,4 @@
-@extends('layouts.auth')
+@extends('layouts.log')
 
 @section('content')
 
@@ -11,10 +11,9 @@
                             <div class="card-header">
 
                                 <p>  <img src="{{ asset('/img/CHE2-150x75.png') }}" alt="logo che2"></p>
-                                Déjà un compte ? Connecte toi <a href="{{ url('/login') }}"> ici </a> </div>
-
+                                
                             <div class="card-body">
-                    <form method="POST" action="{{ route('register') }}">
+                    <form method="POST" action="{{ route('user.store') }}">
                         @csrf
 
                         <div class="form-group row">
@@ -35,7 +34,7 @@
                             <label for="nom" class="col-md-4 col-form-label text-md-right">Nom</label>
 
                             <div class="col-md-6">
-                                <input id="nom" type="text" class="form-control @error('nom') is-invalid @enderror" name="nom" value="{{ old('nom') }}" required autocomplete="nom" autofocus >
+                                <input id="nom" type="text" class="form-control @error('nom') is-invalid @enderror" name="nom" value="{{ old('nom') }}" required autocomplete="nom" autofocus>
 
                                 @error('nom')
                                     <span class="invalid-feedback" role="alert">
@@ -63,7 +62,7 @@
                             <label for="email" class="col-md-4 col-form-label text-md-right">Adresse Mail</label>
 
                             <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email"  placeholder="h.magnifique@students.ephec.be">
+                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
 
                                 @error('email')
                                     <span class="invalid-feedback" role="alert">
@@ -94,21 +93,11 @@
                                 <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
                             </div>
                         </div>
-			<div class="form-group row">
-			 <div class="col-md-6 offset-md-4">
-                                                <div class="g-recaptcha" data-sitekey="{{env('CAPTCHA_KEY')}}">
-                                                </div>
-                                                @if($errors->has('g-recaptcha-response'))
-                                                    <span class="invalid-feedback" styles="display:block">
-                                                        <strong> {{$errors->first('g-recaptcha-response')}} </strong>
-                                                    </span>
-                                                @endif
-                                            </div>
-			</div>
+		
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-3">
                                 <button type="submit" class="btn btn-primary">
-                                    S'inscrire
+                                    Ajouter l'utilisateur
                                 </button>
                             </div>
                         </div>
@@ -122,5 +111,4 @@
 </header>
 
 @endsection
-
 

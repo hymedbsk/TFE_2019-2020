@@ -7,14 +7,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="">
   <meta name="author" content="">
-
+  <meta property="og:image" content="{{ asset('img/che2.png') }}">
   <title>CHE²-Conseil étudiant</title>
-
+ <script src="https://kit.fontawesome.com/4aa80cefec.js" crossorigin="anonymous"></script>
   <!-- Bootstrap core CSS -->
-  <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
 
   <!-- Custom fonts for this template -->
-  <link href="{{ asset('css/all.min.css') }}" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
   <link href='https://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css'>
   <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
@@ -30,34 +29,75 @@
   <!-- Navigation -->
   <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
     <div class="container">
-      <a class="navbar-brand js-scroll-trigger" href="#page-top">CHE²-Conseil ��ùtudiant</a>
+      <a class="navbar-brand js-scroll-trigger" href="#page-top">CHE²-Conseil Étudiant</a>
       <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
         Menu
         <i class="fas fa-bars"></i>
       </button>
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav text-uppercase ml-auto">
+            @guest
           <li class="nav-item">
             <a class="nav-link js-scroll-trigger" href="#services">Nos partenaires</a>
           </li>
           <li class="nav-item">
             <a class="nav-link js-scroll-trigger" href="#portfolio">Photos</a>
           </li>
+
           <li class="nav-item">
             <a class="nav-link js-scroll-trigger" href="#about">Nos missions</a>
           </li>
+          @endguest
           <li class="nav-item">
-            <a class="nav-link js-scroll-trigger" href="{{ asset('/plateforme') }}"> Plateforme </a>
+            <a class="nav-link js-scroll-trigger" href="{{ url('/post') }}"> Plateforme </a>
 
           <li class="nav-item">
             <a class="nav-link js-scroll-trigger" href="#contact">Contact</a>
           </li>
+          @guest
           <li class="nav-item">
             <a class="nav-link js-scroll-trigger" href="{{ url('/login') }}">Connexion</a>
           </li>
+          @endguest
+
         </ul>
-      </div>
+      
+      @if(Auth::check() && Auth::user()->compte_check == 1)
+      <a id="navbarDropdown" class="nav-link dropdown-toggle text-uppercase"  href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+          {{ Auth::user()->nom }} <span class="caret"></span>
+      </a>
+
+          <div class="dropdown-menu dropdown-menu-right animate slideIn" aria-labelledby="navbarDropdown">
+
+                  <a class=" dropdown-item " href="{{ url('/profil') }}">
+                       <i class="fas fa-user-edit"></i>  Mon profil 
+                   </a>
+		    <a class=" dropdown-item " href="{{ url('/home') }}">                                
+                               <i class="fas fa-house-user"></i>  Home 
+		    </a>  
+		  @if(Auth::user()->membre==1)
+                                <a  class=" dropdown-item nav-item " href="{{ url('/membre') }}" >
+                                       <i class="fas fa-crown"></i> <strong>  Espace membre </strong>
+                                </a>
+                                @endif
+                   <a class=" dropdown-item nav-item " href="{{ url('/post/create') }}" >
+                      <i class="fas fa-plus-circle"></i>  Ajouter une annonce  
+                  </a>
+		  
+                  <a class="dropdown-item" href="{{ route('logout') }}"
+                       onclick="event.preventDefault();
+                       document.getElementById('logout-form').submit();">
+                           <i class="fas fa-door-open"></i>   {{ __('Logout') }}
+                  </a>
+
+
+                  <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                      @csrf
+                  </form>
+              </div>
+              @endif
     </div>
+</div>
   </nav>
 
   <!-- Header -->
@@ -69,7 +109,7 @@
   </header>
 
   <!-- Partenaires -->
-  <section class="page-section" id="services">
+  <section class=" bg-light page-section" id="services">
     <div class="container">
       <div class="row">
         <div class="col-lg-12 text-center">
@@ -79,29 +119,36 @@
       </div>
       <div class="row text-center">
         <div class="col-md-4">
-          <span class="fa-stack fa-4x">
-            <i class="fas fa-circle fa-stack-2x text-primary"></i>
-            <i class="fas fa-shopping-cart fa-stack-1x fa-inverse"></i>
-          </span>
+          
           <h4 class="service-heading">Green Man Bar </h4>
           <p class="text-muted"><img class="img-fluid" src="{{ asset('img/partenaires/greenMan.png') }}" alt="green man bar"></p>
         </div>
         <div class="col-md-4">
-          <span class="fa-stack fa-4x">
-            <i class="fas fa-circle fa-stack-2x text-primary"></i>
-            <i class="fas fa-laptop fa-stack-1x fa-inverse"></i>
-          </span>
+          
           <h4 class="service-heading"></h4>
           <p class="text-muted"></p>
         </div>
         <div class="col-md-4">
-          <span class="fa-stack fa-4x">
-            <i class="fas fa-circle fa-stack-2x text-primary"></i>
-            <i class="fas fa-lock fa-stack-1x fa-inverse"></i>
-          </span>
+          
           <h4 class="service-heading">Mezzo Bar</h4>
           <p class="text-muted"><img class="img-fluid" src="{{ asset('img/partenaires/mezzo.jpeg') }}" alt="mezzo"></p>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="page-section" id="plateforme">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <h2 class="section-heading text-uppercase">Plateforme du CHE²</h2>
+              <h3 class="section-subheading text-muted"></h3>
+            </div>
+          </div>
+        <div class="row alert alert-info">
+
+          <div class="col-lg-12">
+         <p class="plateforme info">   La plateforme du CHE² est un projet qui a pour but de centraliser le partage de documents entre les étudiants, elle permet donc à ceux-ci de partager entre eux leurs documents ( synthèses, plan de cours, TP, etc), qui pourront ainsi directement être télécharger depuis la plateforme </p>
       </div>
     </div>
   </section>
@@ -117,13 +164,13 @@
       </div>
       <div class="row">
         <div class="col-md-4 col-sm-6 portfolio-item">
-          <a class="portfolio-link" data-toggle="modal" href="modal24h">
+          <a class="portfolio-link" data-toggle="modal" href="#modal24">
             <div class="portfolio-hover">
               <div class="portfolio-hover-content">
                 <i class="fas fa-plus fa-3x"></i>
               </div>
             </div>
-            <img class="img-fluid" src="{{ asset('img/photo/24hChe2.jpg') }}" alt="">
+            <img class="img-fluid" src="{{ asset('img/24hChe2.jpg') }}" alt="">
           </a>
           <div class="portfolio-caption">
             <h4>24h vélo</h4>
@@ -160,28 +207,6 @@
     </div>
   </section>
 
- <div class="portfolio-modal modal fade" id="modal24" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="close-modal" data-dismiss="modal">
-            <div class="lr">
-                <div class="rl"></div>
-            </div>
-            </div>
-            <div class="container">
-            <div class="row">
-                <div class="col-lg-12 mx-auto">
-                <div class="modal-body">
-		<img class="img-fluid" src="img/photo/24hChe2.png" alt="24hche2">
-
-		      </div>
-                </div>
-            </div>
-            </div>
-        </div>
-        </div>
-    </div>
-
   <!-- About -->
   <section class="page-section" id="about">
     <div class="container">
@@ -205,6 +230,7 @@
             <ul class="timeline">
               <li>
                 <div class="timeline-image">
+                    <img class="rounded-circle img-fluid" src="{{ asset('/img/téléchargement.png') }}" alt="logo che2">
                 </div>
                 <div class="timeline-panel">
                   <div class="timeline-heading">
@@ -217,6 +243,8 @@
               </li>
               <li class="timeline-inverted">
                 <div class="timeline-image">
+
+                    <img class="rounded-circle img-fluid" src="{{ asset('/img/téléchargement.png') }}" alt="logo che2">
                 </div>
                 <div class="timeline-panel">
                   <div class="timeline-heading">
@@ -231,6 +259,7 @@
               </li>
               <li>
                 <div class="timeline-image">
+                    <img class="rounded-circle img-fluid" src="{{ asset('/img/téléchargement.png') }}" alt="logo che2">
                 </div>
                 <div class="timeline-panel">
                   <div class="timeline-heading">
@@ -257,35 +286,37 @@
       </div>
       <div class="row">
         <div class="col-lg-12">
-        {!! Form::open(['url' => 'contact']) !!}
+        {!! Form::open(['route' => 'contact.form']) !!}
+        {{csrf_field()}}
             <div class="row">
               <div class="col-md-6">
                 <div class="form-group {!! $errors->has('nom') ? 'has-error' : '' !!}">
                  {!! Form::text('nom', null, ['class' => 'form-control', 'placeholder' => 'Votre nom']) !!}
-            {!! $errors->first('nom', '<small class="help-block">:message</small>') !!}
+            {!! $errors->first('nom', '<strong style="color:#fed136" class="help-block">:message</strong>') !!}
                   <p class="help-block text-danger"></p>
                 </div>
                 <div class="form-group {!! $errors->has('prenom') ? 'has-error' : '' !!}">
-                 {!! Form::text('nom', null, ['class' => 'form-control', 'placeholder' => 'Votre prénom']) !!}
-            {!! $errors->first('prenom', '<small class="help-block">:message</small>') !!}
+                 {!! Form::text('prenom', null, ['class' => 'form-control', 'placeholder' => 'Votre prénom']) !!}
+            {!! $errors->first('prenom', '<strong style="color:#fed136" class="help-block">:message</strong>') !!}
                   <p class="help-block text-danger"></p>
                 </div>
                 <div class="form-group">
                    {!! Form::email('email', null, ['class' => 'form-control', 'placeholder' => 'Votre email']) !!}
-            {!! $errors->first('email', '<small class="help-block">:message</small>') !!}
+            {!! $errors->first('email', '<strong style= "color:#fed136" class="help-block">:message</strong>') !!}
                   <p class="help-block text-danger"></p>
                 </div>
               </div>
               <div class="col-md-6">
                 <div class="form-group  {!! $errors->has('texte') ? 'has-error' : '' !!}">
                   {!! Form::textarea ('texte', null, ['class' => 'form-control', 'placeholder' => 'Votre message']) !!}
-            {!! $errors->first('texte', '<small class="help-block">:message</small>') !!}
+            {!! $errors->first('texte', '<strong style="color:#fed136" class="help-block">:message</strong>') !!}
                   <p class="help-block text-danger"></p>
                 </div>
               </div>
               <div class="clearfix"></div>
               <div class="col-lg-12 text-center">
                 <div id="success"></div>
+               
                {!! Form::submit('Envoyer !', ['class' => 'btn btn-primary btn-xl text-uppercase']) !!}
         {!! Form::close() !!}
               </div>
@@ -336,7 +367,69 @@
     </div>
   </footer>
 
+	 <div class="portfolio-modal modal fade" id="modal24" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">                                                                                                                                                                                                                   <div class="modal-content">
+            <div class="close-modal" data-dismiss="modal">
+                  <div class="lr">
+                <div class="rl"></div>
+            </div>
+            </div>
+            <div class="container">
+            <div class="row">                                                                                                                                                                                                                                <div class="col-lg-10 mx-auto">
+                <div class="modal-body">
 
+                        <p><img class="img-fluid" src="img/photo/24hChe2.png" alt="24h che2"><p>
+                        <p><img class="img-fluid" src="img/back2.jpg" alt="24h che2"><p>
+			 <p><img class="img-fluid" src="img/back3.jpg" alt="24h che2"><p>
+			<p><img class="img-fluid" src="img/back_contact.jpg" alt="24h che2"><p>
+
+                </div>
+                </div>
+            </div>
+            </div>
+        </div>
+        </div>
+    </div>
+   </div>
+   <div class="portfolio-modal modal fade" id="modalSt" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">                                                                                                                                                                                                          $            <div class="close-modal" data-dismiss="modal">
+                  <div class="lr">                                                                                                                                                                                                                           <div class="rl"></div>
+            </div>
+            </div>
+            <div class="container">
+            <div class="row">                                                                                                                                                                                                               $                <div class="modal-body">
+
+                        <p><img class="img-fluid" src="img/photo/24hChe2.png" alt="24h che2"><p>
+                        <p><img class="img-fluid" src="img/back2.jpg" alt="24h che2"><p>
+                         <p><img class="img-fluid" src="img/back3.jpg" alt="24h che2"><p>
+                        <p><img class="img-fluid" src="img/back_contact.jpg" alt="24h che2"><p>
+
+                	</div>
+                    </div>                                                                                                                                                                                                                                   </div>                                                                                                                                                                                                                                       </div>
+        	</div>
+       	    </div>
+   	 </div>
+        </div>
+  
+	<div class="portfolio-modal modal fade" id="modalEquipe" tabindex="-1" role="dialog" aria-hidden="true">
+       		 <div class="modal-dialog">                                                                                                                                                                                                          $            <div class="close-modal" data-dismiss="modal">
+                	  <div class="lr">                                                                                                                                                                                                                           <div class="rl"></div>
+          		  </div>
+           	 </div>
+            <div class="container">
+           	 <div class="row">                                                                                                                                                                                                               $                <div class="modal-body">
+
+                        <p><img class="img-fluid" src="img/photo/24hChe2.png" alt="24h che2"><p>
+                        <p><img class="img-fluid" src="img/back2.jpg" alt="24h che2"><p>
+                         <p><img class="img-fluid" src="img/back3.jpg" alt="24h che2"><p>
+                        <p><img class="img-fluid" src="img/back_contact.jpg" alt="24h che2"><p>
+
+                	</div>
+               	    </div>                                                                                                                                                                                                                                   </div>                                                                                                                                                                                                                                       </div>
+       		 </div>
+       	     </div>
+   	 </div>
+        </div>
 
 
   <!-- Bootstrap core JavaScript -->
@@ -346,7 +439,7 @@
   <!-- Plugin JavaScript -->
   <script src="{{ asset('/js/jquery-easing/jquery.easing.min.js') }}"></script>
 
-
+  <script src = "https://www.google.com/recaptcha/api.js"> </script>
 
   <!-- Custom scripts for this template -->
   <script src="{{ asset('/js/agency.min.js') }}"></script>
@@ -354,3 +447,4 @@
 </body>
 
 </html>
+

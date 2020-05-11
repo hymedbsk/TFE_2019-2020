@@ -12,17 +12,17 @@
 
   <!-- Bootstrap core CSS -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-
-
+	<link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+	<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
   <!-- Custom fonts for this template -->
   <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
   <link href='https://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css'>
   <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
   <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css'>
-
+  <script src="https://www.google.com/recaptcha/api.js"></script>
   <!-- Custom styles for this template -->
-  <link href="{{ asset('css/auth.css') }}" rel="stylesheet">
-  {!! NoCaptcha::renderJs() !!}
+  <link href="{{ asset('css/log.css') }}" rel="stylesheet">
+ <script src="https://kit.fontawesome.com/4aa80cefec.js" crossorigin="anonymous"></script>  
 </head>
 
 <body id="page-top">
@@ -39,18 +39,18 @@
         <ul class="navbar-nav text-uppercase ml-auto">
 
           <li class="nav-item">
-            <a class="nav-link js-scroll-trigger" href="{{ asset('/post') }}"> Plate-forme </a>
+            <a class="nav-link js-scroll-trigger" href="{{ asset('/post') }}"> Plateforme </a>
 
           <li class="nav-item">
             <a class="nav-link js-scroll-trigger" href="{{ asset('/#contact') }}">Contact</a>
           </li>
           @guest
           <li class="nav-item">
-            <a class="nav-link js-scroll-trigger" href="{{ url('/login') }}">Connexion</a>
+           <i class="fad fa-portal-enter"> <a class="nav-link js-scroll-trigger" href="{{ url('/login') }}">Connexion</a></i>
           </li>
           @endguest
         </ul>
-        @if(Auth::check())
+        @if(Auth::check() && Auth::user()->compte_check == 1)
                 <a id="navbarDropdown" class="nav-link dropdown-toggle text-uppercase"  href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                     {{ Auth::user()->nom }} <span class="caret"></span>
                 </a>
@@ -58,21 +58,24 @@
                     <div class="dropdown-menu dropdown-menu-right animate slideIn" aria-labelledby="navbarDropdown">
 
                             <a class=" dropdown-item " href="{{ url('/profil') }}">
-                                 <p>  Mon profil </p>
+                                  <i class="fas fa-user-edit"></i>  Mon profil 
                              </a>
-
-                             <a class=" dropdown-item " href="{{ url('/user') }}">
-                                <p>  Gestion des utilisateurs </p>
+				<a class=" dropdown-item " href="{{ url('/home') }}">
+		                                  <i class="fas fa-house-user"></i>  Home 
+                             </a>
+				@if( Auth::user()->membre==1)
+                                <a class=" dropdown-item nav-item " href="{{ url('/membre') }}" >
+                               	<strong><i class="fas fa-crown"></i>  Espace membre </strong></a>
+				 </a>
+				@endif
+                             <a class=" dropdown-item " href="{{ url('/post/create') }}" >
+                              <i class="fas fa-plus-circle"></i>   Ajouter une annonce 
                             </a>
-
-                             <a class=" dropdown-item nav-item " href="{{ url('/post/create') }}" >
-                                <p>  Ajouter une annonce  </p>
-                            </a>
-
-                            <a class="dropdown-item" href="{{ route('logout') }}"
+				
+                          <a class="dropdown-item" href="{{ route('logout') }}"
                                  onclick="event.preventDefault();
                                  document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
+                                       <i class="fas fa-door-open"></i>  {{ __('Logout') }}
                             </a>
 
 
@@ -102,3 +105,4 @@
   <script src="{{ asset('/js/agency.min.js') }}"></script>
 </body>
 </html>
+
