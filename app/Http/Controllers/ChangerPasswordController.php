@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Rules\MatchOldPassword;
 use Illuminate\Support\Facades\Hash;
-use App\Users;
-
+use App\User;
+use Illuminate\Support\Facades\Session;
 class ChangerPasswordController extends Controller
 {
      public function __construct()
@@ -36,8 +36,8 @@ class ChangerPasswordController extends Controller
             'new_confirm_password' => ['same:new_password'],
         ]);
 
-        Users::find(auth()->user()->User_id)->update(['password'=> Hash::make($request->new_password)]);
-
-        dd('Le mot de passe a bien été changé');
+        User::find(auth()->user()->id)->update(['password'=> Hash::make($request->new_password)]);
+	Session::flash('message', 'Mot de passe changé !');
+        return redirect('profil');
     }
 }

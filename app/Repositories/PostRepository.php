@@ -11,8 +11,7 @@ class PostRepository
 
     public function __construct(Post $post)
 	{
-        $this->post = $post;
-        $this->model = $post;
+		$this->post = $post;
 	}
 
 	public function getPaginate($n)
@@ -24,18 +23,7 @@ class PostRepository
 
 	public function store($inputs)
 	{
-
 		$this->post->create($inputs);
-	}
-    
-    public function edit($id)
-	{
-
-	    return	$this->post->edit($id);
-	}
-    public function getById($id)
-	{
-		return $this->post->find($id);
 	}
 
 	public function destroy($id)
