@@ -28,7 +28,6 @@
                                                 <td> </td>
                                                 <td class="text doc"><i class="fa fa-folder"><a class="doc" href="{{ url('document/'.$doc->doc_id.'/list')}}"> {{$doc->nom}} </a></i></td>
                                                 <td class="text doc"> {{$doc->cree_le->format('d-m-Y')}} </td>
-                                                <td class="text doc"> {{$doc->user->prenom}} {{$doc->user->nom}} </td>
                                             </tr>
                                         @endforeach
                                     </tbody>

@@ -9,7 +9,7 @@
                 <div class="col-md-4">
                     <div class="card shadow p-3 mb-5 bg-white rounded">
                         <div class="card-body">
-                            <a href="#">
+                            <a href="{{url('/budget')}}">
                                 <h5 class="card-title"><i  style="color:#fed136" class="fas fa-coins fa-4x"></i></h5>
                                 <p class="card-text"><strong>Trésorie</p></strong>
                                 <a class="card-text"></a>

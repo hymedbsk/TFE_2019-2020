@@ -10,7 +10,8 @@
                         <div class="card-header">
                             <p>
                                 <img src="{{ asset('/img/che2head.png') }}" alt="logo che2">
-				                <h3> Ajouter un document </h3>
+                                <h3> Ajouter un document </h3>
+                                {{$id}}
                             </p>
                         </div>
                          <div class="card-body">
@@ -19,7 +20,12 @@
                             <div class="form-group ">
                                 <div class ="row">
                                     <div class="col-md-12">
-                                        {!! Form::select('doc', $docs, old('doc'), ['class' => 'form-control select2', 'required' => '']) !!}
+
+                                        <select name='doc' class=" form-control border-primary">
+                                            @foreach($docs as $doc)
+                                                <option value="{{$doc->doc_id}} "  @if($id == $doc->doc_id) selected @endif> {{$doc->nom}} </option>
+                                            @endforeach
+                                        </select>
                                     </div>
                                 </div>
                             </div>
