@@ -17,8 +17,14 @@ class FileController extends Controller
     {
         //Storage::disk('comm')->delete('Englais_aout_2k19.docx');
 
-        $Doc = Doc::find(2);
-        $Doc->files()->attach(2);
+      //  $Doc = Doc::find(2);
+      //  $Doc->files()->attach(2);
+
+
+
+      $docs = Doc::get()->pluck('nom', 'doc_id');
+
+      return view('file.test', compact('docs'));
     }
 
     /**
@@ -26,9 +32,11 @@ class FileController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($id)
     {
-        return view('file.add');
+
+        $docs = Doc::get();;
+        return view('file.add', compact('docs'))->with('id',$id);
     }
 
     /**
@@ -49,7 +57,11 @@ class FileController extends Controller
         $file->file_nom = $filename;
         $file->save();
 
-        return redirect('document');
+       $Doc = Doc::findOrFail($request->doc);
+        $Doc->files()->attach($file->file_id);
+
+        return redirect('document/'.$request->doc.'/list');
+
     }
 
     /**
@@ -71,6 +83,7 @@ class FileController extends Controller
      */
     public function edit($id)
     {
+
 
     }
 

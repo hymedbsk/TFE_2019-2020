@@ -61,20 +61,21 @@ class DocController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show()
+    public function show($id)
     {
-        $docs =  Doc::with('files')->where('doc_id','=','1')->get();
 
-        foreach($docs as $doc){
+
+        $docs =  Doc::with('files')->where('doc_id','=',$id)->get();
+
+      /*  foreach($docs as $doc){
             foreach($doc->files as $file){
                 echo $file->file_nom;
             }
-        }
-       // $docs = Doc::with('files')->where('doc_id', '=', '1')->get();
+        }*/
 
+        $files = File::all();
 
-
-       // return view('document.show', compact('docs','files'));
+       return view('document.show', compact('docs','files'))->with('id',$id);
 
     }
 
@@ -86,7 +87,7 @@ class DocController extends Controller
      */
     public function edit($id)
     {
-        //
+        echo $id;
     }
 
     /**
