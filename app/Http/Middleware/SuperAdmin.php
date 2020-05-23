@@ -7,7 +7,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Response;
 use App\User;
-class Admin
+class SuperAdmin
 {
     /**
      * Handle an incoming request.
@@ -16,16 +16,18 @@ class Admin
      * @param  \Closure  $next
      * @return mixed
      */
-    public function handle($request, Closure $next){
+    public function handle($request, Closure $next)
+    {    $user = Auth::user();
 
-        $user = Auth::user();
-        if($user->roles->first()){
-            foreach($user->roles as $role){
-                if($role->nom == "Président" || $role->nom == "Super Admin" || $role->nom == "Administrateur" || $role->nom == "Vice-président" ){
+
+            // do something with role here
+            foreach ($user->roles as $role){
+                if ($role->nom=='Super Admin'){
                     return $next($request);
+
                 }
-                return redirect('/');
             }
-        } return redirect('/');
+
+		return new RedirectResponse(url('/'));
     }
 }

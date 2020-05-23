@@ -24,6 +24,7 @@ class RoleController extends Controller
         $this->userRepository = $userRepository;
 
         $this->middleware('auth');
+        //$this->middleware('president');
 
 	}
     public function index()
@@ -64,7 +65,7 @@ class RoleController extends Controller
     public function change(TeRequests $request, $id){
 
 
-            $User = User::find($id);
+            $User = User::findorFail($id);
             $Roles = Role::find($request);
             $User->roles()->syncWithoutDetaching($Roles);
             $users = $this->userRepository->getPaginate($this->nbrPerPage);
@@ -119,4 +120,3 @@ class RoleController extends Controller
 
     }
 }
-

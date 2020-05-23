@@ -7,7 +7,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Response;
 use App\User;
-class Admin
+class Tresorier
 {
     /**
      * Handle an incoming request.
@@ -21,7 +21,7 @@ class Admin
         $user = Auth::user();
         if($user->roles->first()){
             foreach($user->roles as $role){
-                if($role->nom == "Président" || $role->nom == "Super Admin" || $role->nom == "Administrateur" || $role->nom == "Vice-président" ){
+                if($role->nom == "Président" || $role->nom == "Super Admin" || $role->nom == "Trésorier" || $role->nom == "Vice-président" ){
                     return $next($request);
                 }
                 return redirect('/');

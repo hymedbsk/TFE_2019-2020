@@ -18,9 +18,8 @@ class DepController extends Controller
 
     public function __construct(){
 
-        $this->middleware('auth', ['except' => 'index']);
-        $this->middleware('superadmin',['except' => 'index']);
-
+        //$this->middleware('auth');
+        //$this->middleware('superadmin');
 
 	}
 
@@ -33,7 +32,7 @@ class DepController extends Controller
 
         $id = Crypt::decrypt($ids);
 
-        $totals = DB::table('budget')->where('id', '=','2')->pluck('total');
+        $totals = DB::table('budget')->where('id', '=',  $id)->pluck('total');
         $gains = Gain::all()->where('budg_id','=',$id);
         $depenses =  Depense::all()->where('budg_id','=',$id);
         $budget = Budget::findOrFail($id);
@@ -61,9 +60,7 @@ class DepController extends Controller
         $this->tot = $total - $this->totDepense;
         $this->tot +=  $this->totGain;
             return view('depense.list', compact('depenses','gains','totals','budget'))->with('totGain', $this->totGain)->with('totDepense',$this->totDepense)->with('tot',$this->tot);
-
     }
-
     /**
      * Show the form for creating a new resource.
      *
@@ -73,7 +70,6 @@ class DepController extends Controller
     {
         $id = Crypt::decrypt($ids);
         $budget = Budget::findOrFail($id);
-
 
         return view('depense.add', compact('budget'));
 
@@ -88,7 +84,6 @@ class DepController extends Controller
     public function store(Request $request,$ids)
     {
         $id = Crypt::decrypt($ids);
-        echo $ids;
 
         $depense = new Depense;
         $depense->libelle = $request->input('libelle');
@@ -160,9 +155,10 @@ class DepController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update()
     {
-        //
+        $pdf = PDF::loadView('presence');
+        return $pdf->download('compte.pdf');
     }
 
     /**
@@ -176,4 +172,3 @@ class DepController extends Controller
         //
     }
 }
-

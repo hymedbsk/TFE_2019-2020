@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class FileRequest extends FormRequest
+class BudgRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,7 +24,8 @@ class FileRequest extends FormRequest
     public function rules()
     {
         return [
-            'Nom_doc' => 'mimes:doc,docx,pdf,xlsx,ppt,txt'
+            'nom' => 'required|min:3|max:15|alpha',
+            'annee' =>'required|min:9|max:9',
         ];
     }
 }

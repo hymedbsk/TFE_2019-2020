@@ -55,7 +55,7 @@ class RegisterController extends Controller
             'matricule' => ['required', 'string', 'max:8', 'unique:users'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
-		'g-recaptcha-response' => new Captcha(),
+
         ]);
     }
 

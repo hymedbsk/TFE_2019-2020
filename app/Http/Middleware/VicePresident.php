@@ -1,11 +1,13 @@
 <?php
 
 namespace App\Http\Middleware;
-use Illuminate\Foundation\Auth\AuthenticatesUsers;
+
 use Closure;
 use Illuminate\Http\RedirectResponse;
-
-class Membre
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Response;
+use App\User;
+class VicePresident
 {
     /**
      * Handle an incoming request.
@@ -15,9 +17,11 @@ class Membre
      * @return mixed
      */
     public function handle($request, Closure $next)
-    {
-      
-		return new RedirectResponse(url('home'));
+    {    $user = Auth::user();
+
+        if ($user->roles=='Vice-Président'){
+			return $next($request);
+    }
+		return new RedirectResponse(url('post'));
     }
 }
-

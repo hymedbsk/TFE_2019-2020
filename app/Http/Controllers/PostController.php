@@ -19,8 +19,8 @@ class PostController extends Controller{
 
     public function __construct(PostRepository $postRepository){
 
-        $this->middleware('auth');
-	$this->middleware('check');
+       // $this->middleware('auth', ['except' => 'index']);
+
 	$this->postRepository = $postRepository;
 
 	}
@@ -44,7 +44,7 @@ class PostController extends Controller{
         	$filters = Input::get('Option_Nom');
         	$filters2 = Input::get('Bac');
         	$posts = Post::where([ ['option', '=', $filters], ['bac', '=', $filters2],])->paginate(6)->appends('option',$filters);
-		Session::flash('message', 'Résultat pour votre filtre'); 
+		Session::flash('message', 'Résultat pour votre filtre');
 		return view('post.list')->with(compact('posts', 'links'));
 
 
@@ -60,8 +60,8 @@ class PostController extends Controller{
             */
     	}
 	public function store(PostRequest $request){
-	
-	$file = $request->file('Nom_doc');
+
+	    $file = $request->file('Nom_doc');
         $filename = $file->getClientOriginalName();
         $file->storeAs('public', $filename);
         $input['Nom_doc'] = $filename;
@@ -70,9 +70,9 @@ class PostController extends Controller{
         $posts->titre  = $request->input('Titre');
         $posts->description = $request->input('Description');
         $posts->User_id = $request->user()->id;
-	$posts->option= $request->input('Option_Nom');
-	$posts->bac = $request->input('Bac');
-	$posts->doc = $filename;
+	    $posts->option = $request->input('Option_Nom');
+	    $posts->bac = $request->input('Bac');
+	    $posts->doc = $filename;
         $posts->save();
         /*Post::create([
             'Titre' => $request ->Titre,
@@ -87,6 +87,16 @@ class PostController extends Controller{
         return $url;
     }
 
+    public function show(){
+
+        $files = Post::all();
+
+      foreach ($files as $file) {
+
+            echo $file->user->nom;
+
+      }
+    }
 
     public function edit($id){
 
@@ -116,7 +126,7 @@ class PostController extends Controller{
         $posts->titre = $request->input('Titre');
         $posts->description = $request->input('Description');
         $posts->User_id = $request->user()->id;
-	$posts->option = $request->input('Option_Nom');
+	    $posts->option = $request->input('Option_Nom');
         $posts->bac = $request->input('Bac');
         $posts->doc = $filename;
         $posts->save();
@@ -128,22 +138,15 @@ class PostController extends Controller{
 
         $posts = Post::findOrFail($id);
 
-        if(auth()->user()->membre == 1){
-	
-	$posts->delete();
-        Session::flash('message', 'Post supprimer !');
-        return redirect(route('post.index'));
-	
-	 
+        if(auth()->user()->id !== $posts->User_id){
 
-        }else if(auth()->user()->id !== $posts->User_id){
+            return redirect(route('post.index'));
 
-        return redirect(route('post.index'));
-	}else{
+        }
 
         $posts->delete();
 	Session::flash('message', 'Post supprimer !');
 	return redirect(route('post.index'));
-	}
+
 	}
 }

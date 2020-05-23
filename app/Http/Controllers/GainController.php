@@ -108,4 +108,3 @@ class GainController extends Controller
         //
     }
 }
-

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\File;
 use App\Doc;
 use App\User;
+use Illuminate\Support\Facades\Crypt;
 class FileController extends Controller
 {
     /**
@@ -32,11 +33,11 @@ class FileController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($ids)
     {
-
-        $docs = Doc::get()->pluck('nom', 'doc_id');
-        return view('file.add', compact('docs'));
+        $id = Crypt::decrypt($ids);
+        $docs = Doc::get();
+        return view('file.add', compact('docs'))->with('id',$id);
     }
 
     /**
@@ -57,8 +58,11 @@ class FileController extends Controller
         $file->file_nom = $filename;
         $file->save();
 
+        $Doc = Doc::findOrFail($request->doc);
+        $Doc->files()->attach($file->file_id);
 
-        return redirect('document');
+        return redirect('document/'.Crypt::encrypt($request->doc).'/list');
+
     }
 
     /**
@@ -104,7 +108,9 @@ class FileController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $file = File::findOrFail($id);
+        $file->delete();
+
+        return redirect('document');
     }
 }
-

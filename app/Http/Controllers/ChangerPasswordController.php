@@ -37,7 +37,7 @@ class ChangerPasswordController extends Controller
         ]);
 
         User::find(auth()->user()->id)->update(['password'=> Hash::make($request->new_password)]);
-	Session::flash('message', 'Mot de passe changé !');
+	    Session::flash('message', 'Mot de passe changé !');
         return redirect('profil');
     }
 }

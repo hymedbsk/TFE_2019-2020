@@ -31,3 +31,6 @@ class ContactRequest extends FormRequest
         ];
     }
 }
+
+
+(SQL: select `larapoll_polls`.*, (select count(*) from `larapoll_options` where `larapoll_polls`.`` = `larapoll_options`.`poll_`) as `options_count`, (select count(*) from `larapoll_votes` inner join `larapoll_options` on `larapoll_options`.`` = `larapoll_votes`.`option_` where `larapoll_polls`.`` = `larapoll_options`.`poll_`) as `votes_count` from `larapoll_polls`)
