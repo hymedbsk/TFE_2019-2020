@@ -1,4 +1,4 @@
-@extends('layouts.post')
+@extends('layouts.log')
 
 @section('content')
 <header class="masthead">
@@ -17,27 +17,28 @@
                         </p>
                     </div>
                     <div class="card-body">
-                        <table class="table">
-                            <thead>
-
-                                <th class="scope">Rôle</th>
-                                <th class="scope"></th>
-                                <th class="scope"> <a href="{{ url('role/gestion/create') }}" class="btn btn-info"> Créer un rôle </a></th>
-                            </thead>
-                            <tbody>
-                                @foreach ($roles as $role)
-                                    <tr>
-                                        <td class="text-primary"><strong>{!! $role->nom !!}</strong></td>
-                                        <td class="text-primary"></td>
-                                        <td>
-                                            {!! Form::open([ 'method'=> 'DELETE',  'route' => ['role.destroy', $role->Role_id]]) !!}
-                                            {!! Form::submit('Supprimer', ['class' => 'btn btn-danger btn-block', 'onclick' => 'return confirm(\'Vraiment supprimer ce rôle  ?\')']) !!}
-                                            {!! Form::close() !!}
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
+                        <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                        <th class="scope">Rôle</th>
+                                        <th class="scope"></th>
+                                        <th class="scope"> <a href="{{ url('role/gestion/create') }}" class="btn btn-info"> Créer un rôle </a></th>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($roles as $role)
+                                            <tr>
+                                                <td class="text-primary"><strong>{!! $role->nom !!}</strong></td>
+                                                <td class="text-primary"></td>
+                                                <td>
+                                                    {!! Form::open([ 'method'=> 'DELETE',  'route' => ['role.destroy', $role->Role_id]]) !!}
+                                                    {!! Form::submit('Supprimer', ['class' => 'btn btn-danger btn-block', 'onclick' => 'return confirm(\'Vraiment supprimer ce rôle  ?\')']) !!}
+                                                    {!! Form::close() !!}
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                        </div>
                     </div>
                 </div>
           </div>
@@ -47,3 +48,4 @@
   </header>
 
 @endsection
+
