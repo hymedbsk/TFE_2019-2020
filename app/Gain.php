@@ -7,20 +7,20 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Gain extends Model
 {
-    protected $table = 'gain';
-    protected $primaryKey = 'id';
-    protected $fillable = ['id','libelle','montant','User_id','budg_id','description','date_cree','date_supp'];
+    protected $table = 'gains';
+    protected $primaryKey = 'gain_id';
+    protected $fillable = ['libelle','montant','User_id','budg_id','description','date_cree','date_supp'];
     const CREATED_AT = "date_cree";
     use SoftDeletes;
     const DELETED_AT = 'date_supp';
 
 
     public function budgets(){
-		return $this->belongsTo('App\Budget','budg_id');
+		return $this->belongsTo('App\Budget','budg_id')->withTrashed();
     }
 
     public function users(){
-		return $this->belongsTo('App\User','User_id');
+		return $this->belongsTo('App\User','User_id')->withTrashed();
 	}
     public function setUpdatedAtAttribute($value){
         // to Disable updated_at

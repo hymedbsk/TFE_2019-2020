@@ -62,11 +62,11 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'admin' => \App\Http\Middleware\Admin::class,
-        'membre' => \App\Http\Middleware\Membre::class,
-        'tresorier' => \App\Http\Middleware\Tresorier::class,
-        'vicepresident' => \App\Http\Middleware\VicePresident::class,
-        'superadmin' => \App\Http\Middleware\SuperAdmin::class,
-        'president' => \App\Http\Middleware\President::class,
+	'membre' => \App\Http\Middleware\Membre::class,
+	'check' => \App\Http\Middleware\CompteCheck::class,
+	'superadmin' => \App\Http\Middleware\SuperAdmin::class,
+	'tresorier' => \App\Http\Middleware\Tresorier::class,
+	'president' => \App\Http\Middleware\President::class,
     ];
 
     /**

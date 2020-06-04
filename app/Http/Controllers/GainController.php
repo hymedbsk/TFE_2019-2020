@@ -13,6 +13,16 @@ class GainController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function __construct(){
+
+        $this->middleware('auth');
+        $this->middleware('tresorier', ['except' => 'index']);
+
+
+	}
+
+
     public function index()
     {
         //
@@ -45,7 +55,7 @@ class GainController extends Controller
 
         $gain->libelle = $request->input('libelle');
         $gain->montant = $request->input('montant');
-        $gain->User_id = $request->user()->User_id;
+        $gain->User_id = $request->user()->id;
         $gain->budg_id = $id;
         $gain->description = $request->input('description');
         $gain->save();
@@ -59,9 +69,11 @@ class GainController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($ids)
     {
-        //
+        $id =  Crypt::decrypt($ids);
+	$gain = Gain::findOrFail($id);
+	return view('gain.show', compact('gain'));
     }
 
     /**
@@ -98,3 +110,4 @@ class GainController extends Controller
         //
     }
 }
+

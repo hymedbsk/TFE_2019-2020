@@ -1,11 +1,11 @@
 <?php
 
 namespace App\Http\Middleware;
-use Illuminate\Foundation\Auth\AuthenticatesUsers;
+
 use Closure;
 use Illuminate\Http\RedirectResponse;
 use Auth;
-class Membre
+class CompteCheck
 {
     /**
      * Handle an incoming request.
@@ -14,13 +14,19 @@ class Membre
      * @param  \Closure  $next
      * @return mixed
      */
+
+
     public function handle($request, Closure $next)
     {
-      	if(Auth::user()->membre == 1){
+        // echo($request->user());
+        // return $next($request);
+        if(Auth::user()->compte_check == 1){
             return $next($request);
         }
+        else{
+            return new RedirectResponse(url('/error'));
+        }
 
-	return new RedirectResponse(url('home'));
     }
 }
 

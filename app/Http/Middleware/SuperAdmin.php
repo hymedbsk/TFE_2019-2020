@@ -20,12 +20,14 @@ class SuperAdmin
     {    $user = Auth::user();
 
 
-            // do something with role here
-
-        if ($user->roles=='Super Admin'){
-			return $next($request);
-
-    }
-		return new RedirectResponse(url('/'));
+           if ($user->roles->first()){
+                foreach($user->roles as $role){
+                    if($role->nom =="Super Admin"){
+                        return $next($request);
+                    }
+                    return redirect('membre');
+                }
+        } return redirect('membre');
     }
 }
+

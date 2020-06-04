@@ -32,11 +32,11 @@ class FileController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create($id)
+    public function create()
     {
 
-        $docs = Doc::get();;
-        return view('file.add', compact('docs'))->with('id',$id);
+        $docs = Doc::get()->pluck('nom', 'doc_id');
+        return view('file.add', compact('docs'));
     }
 
     /**
@@ -57,11 +57,8 @@ class FileController extends Controller
         $file->file_nom = $filename;
         $file->save();
 
-       $Doc = Doc::findOrFail($request->doc);
-        $Doc->files()->attach($file->file_id);
 
-        return redirect('document/'.$request->doc.'/list');
-
+        return redirect('document');
     }
 
     /**
@@ -110,3 +107,4 @@ class FileController extends Controller
         //
     }
 }
+

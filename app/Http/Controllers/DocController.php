@@ -74,8 +74,7 @@ class DocController extends Controller
         }*/
 
         $files = File::all();
-
-       return view('document.show', compact('docs','files'))->with('id',$id);
+       return view('document.show', compact('docs','files'));
 
     }
 
@@ -113,3 +112,4 @@ class DocController extends Controller
         //
     }
 }
+
