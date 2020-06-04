@@ -7,6 +7,7 @@ use App\Doc;
 use App\File;
 use App\Http\Requests\DocRequest;
 use App\User;
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\DB;
 class DocController extends Controller
 {
@@ -37,12 +38,10 @@ class DocController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(DocRequest $request)
-    {
+    public function store(DocRequest $request){
 
       /*  echo($request->user()->User_id);
         echo($request->input('nom'));*/
-
        /* $doc = new Doc;
         $doc->nom = $request->input('nom');
        // $doc->cree_par = $request->user()->User_id;
@@ -61,20 +60,13 @@ class DocController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($ids)
     {
-
-
+        $id = Crypt::decrypt($ids);
         $docs =  Doc::with('files')->where('doc_id','=',$id)->get();
-
-      /*  foreach($docs as $doc){
-            foreach($doc->files as $file){
-                echo $file->file_nom;
-            }
-        }*/
-
         $files = File::all();
-       return view('document.show', compact('docs','files'));
+
+       return view('document.show', compact('docs','files'))->with('id',Crypt::encrypt($id));
 
     }
 
@@ -112,4 +104,3 @@ class DocController extends Controller
         //
     }
 }
-
