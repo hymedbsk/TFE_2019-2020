@@ -95,7 +95,7 @@ return [
     'passwords' => [
         'users' => [
             'provider' => 'users',
-            'table' => 'users',
+            'table' => 'reinit_mot_de_passe',
             'expire' => 60,
         ],
     ],
