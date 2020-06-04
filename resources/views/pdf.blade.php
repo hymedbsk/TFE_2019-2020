@@ -1,34 +1,50 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <style>
-        #customers {
-          font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
-          border-collapse: collapse;
-          width: 100%;
-        }
 
-        #customers td, #customers th {
-          border: 1px solid #ddd;
-          padding: 8px;
-        }
+<head>
+  <meta charset="utf-8">
+  <style>
+    #customers {
+      font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+      border-collapse: collapse;
+      width: 100%;
+    }
 
-        #customers tr:nth-child(even){background-color: #f2f2f2;}
+    #customers td,
+    #customers th {
+      border: 1px solid #ddd;
+      padding: 8px;
+    }
 
-        #customers tr:hover {background-color: #ddd;}
+    h1 {
+      text-align: center;
+    }
 
-        #customers tr th  b{
-          padding-top: 12px;
-          padding-bottom: 12px;
-          text-align: left;
-          background-color: #4CAF50;
-          color: white;
-        }
-        </style>
-  </head>
-  <body>
-    <table id="customers">
+    body {}
+
+    #customers tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+
+    #customers tr:hover {
+      background-color: #ddd;
+    }
+
+    #customers tr th b {
+      padding-top: 12px;
+      padding-bottom: 12px;
+      text-align: left;
+      background-color: #4CAF50;
+      color: white;
+    }
+  </style>
+</head>
+
+<body>
+
+  <h1> Résumé du budget {{ $budget->annee }}</h1>
+
+  <table id="customers">
     <thead>
       <tr>
         <td><b>Montant de base </b></td>
@@ -36,25 +52,73 @@
         <td><b>Total des gains</b></td>
         <td><b>Montant actuel</b></td>
       </tr>
-      </thead>
-      <tbody>
+    </thead>
+    <tbody>
       <tr>
         <td>
-        @foreach($totals as $total)
-            {{$total}}€
-        @endforeach
+          @foreach($totals as $total)
+            {{ $total }}€
+          @endforeach
         </td>
         <td>
-            {{$totDepense}}€
+          {{ $totDepense }}€
         </td>
         <td>
-            {{$totGain}}€
+          {{ $totGain }}€
         </td>
         <td>
-            {{$tot}}€
+          {{ $tot }}€
         </td>
       </tr>
-      </tbody>
-    </table>
-  </body>
+    </tbody>
+  </table>
+
+  <h2> Liste de toute les dépenses </h2>
+  <table id="customers">
+    <thead>
+      <tr>
+        <td><b>Libellé</b></td>
+        <td><b>Montant</b></td>
+        <td><b>Description</b></td>
+      </tr>
+    </thead>
+    <tbody>
+
+      @foreach($depenses as $depense)
+        <tr>
+          <td>{{ $depense->libelle }}</td>
+          <td>{{ $depense->montant }}€</td>
+          <td>{{ $depense->description }}</td>
+        </tr>
+      @endforeach
+
+
+    </tbody>
+  </table>
+
+  <h2> Liste de tout les gains </h2>
+  <table id="customers">
+    <thead>
+      <tr>
+        <td><b>Libellé</b></td>
+        <td><b>Montant</b></td>
+        <td><b>Description</b></td>
+      </tr>
+    </thead>
+    <tbody>
+
+      @foreach($gains as $gain)
+        <tr>
+          <td>{{ $gain->libelle }}</td>
+          <td>{{ $gain->montant }}€</td>
+          <td>{{ $gain->description }}</td>
+        </tr>
+      @endforeach
+
+
+    </tbody>
+  </table>
+
+</body>
+
 </html>

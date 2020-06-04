@@ -15,7 +15,7 @@ class Post extends Model{
     use SoftDeletes;
     const DELETED_AT = 'date_supp';
     public function user(){
-		return $this->belongsTo('App\User','User_id');
+		return $this->belongsTo('App\User','User_id')->withTrashed();
 	}
     //
     

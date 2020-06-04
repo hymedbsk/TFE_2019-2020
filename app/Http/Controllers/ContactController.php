@@ -19,7 +19,7 @@ class ContactController extends Controller {
 			$message->to('hymedboussaklatan@gmail.com')->subject('Contact');
 		});
 
-		return view('accueil');
+		return redirect('accueil');
 	}
 
 }

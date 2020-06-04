@@ -14,15 +14,14 @@ class UserController extends Controller
 
     protected $userRepository;
 
-    protected $nbrPerPage = 4;
+    protected $nbrPerPage = 10;
 
     public function __construct(UserRepository $userRepository)
 	{
-        $this->userRepository = $userRepository;
-        $this->middleware('auth');
-        $this->middleware('president');
-        $this->middleware('superadmin');
-        $this->middleware('admin');
+		 $this->middleware('auth');
+		/*$this->middleware('check');*/
+		/*$this->middleware('membre');*/
+		$this->userRepository = $userRepository;
 	}
 
 	public function index()
@@ -32,12 +31,16 @@ class UserController extends Controller
 
 		return view('user.user', compact('users', 'links'));
 	}
-	public function getCheck(){
-		 $users = $this->userRepository->getPaginate($this->nbrPerPage);
-                $links = $users->render();
 
-                return view('user.userCheck', compact('users', 'links'));
+	public function getCheck(){
+
+
+		$users = User::where('compte_check','=','0')->paginate(15);
+		 		 
+
+                return view('user.userCheck', compact('users'));
 	}
+
 	public function check (User $user){
 		 $userToValid = $user;
 
@@ -47,7 +50,7 @@ class UserController extends Controller
 	}
 	public function create()
 	{
-		return view('create');
+		return view( 'user.add');
 	}
 
 	public function store(UserCreateRequest $request)
@@ -58,7 +61,7 @@ class UserController extends Controller
 
 		return redirect('user')->withOk("L'utilisateur " . $user->name . " a été créé.");
 	}
-
+	
 	public function show($id)
 	{
 		$user = $this->userRepository->getById($id);
@@ -75,11 +78,11 @@ class UserController extends Controller
 
 	public function update(UserUpdateRequest $request, $id)
 	{
-
+		
 
 		$this->userRepository->update($id, $request->all());
 		  return redirect('user');
-
+		
 	}
 
 	public function destroy($id)
@@ -89,20 +92,21 @@ class UserController extends Controller
 		return redirect()->back();
 	}
 
-	public function admin(User $user){
-       		 $userToValid = $user;
+	public function admin($user){
 
-        	User::where('id','=', $userToValid->id)->update(['membre'=> 1]);
+       		 $userToValid = User::findOrFail($user);
+        	
+             	User::where('id','=', $userToValid->id)->update(['membre'=> 1]);
 		Session::flash('message','Utilisateur mis à jour');
        		 return redirect('user');
-
+    
 	}
 
-	public function delAdmin(User $user){
-       	   $userToValid = $user;
+	public function delAdmin($user){
+       	    $userToValid = User::findOrFail($user);
 
            User::where('id','=', $userToValid->id)->update(['membre'=> 0]);
-	   Session::flash('message', 'Utilisateur mise à jour');
+	   Session::flash('message', 'Utilisateur mis�à jour');
             return redirect('user');
 
         }

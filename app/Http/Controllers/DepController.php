@@ -15,6 +15,14 @@ class DepController extends Controller
     private $totGain = 0;
     private $tot = 0;
     private $montant = 0;
+
+    public function __construct(){
+
+        $this->middleware('auth');
+        $this->middleware('tresorier', ['except' => 'index']);
+
+	}
+
     /**
      * Display a listing of the resource.
      *
@@ -23,8 +31,8 @@ class DepController extends Controller
     public function index($ids){
 
         $id = Crypt::decrypt($ids);
-
-        $totals = DB::table('budget')->where('id', '=','2')->pluck('total');
+	
+        $totals = DB::table('budgets')->where('budg_id', '=',  $id)->pluck('total');
         $gains = Gain::all()->where('budg_id','=',$id);
         $depenses =  Depense::all()->where('budg_id','=',$id);
         $budget = Budget::findOrFail($id);
@@ -52,9 +60,7 @@ class DepController extends Controller
         $this->tot = $total - $this->totDepense;
         $this->tot +=  $this->totGain;
             return view('depense.list', compact('depenses','gains','totals','budget'))->with('totGain', $this->totGain)->with('totDepense',$this->totDepense)->with('tot',$this->tot);
-
     }
-
     /**
      * Show the form for creating a new resource.
      *
@@ -64,7 +70,6 @@ class DepController extends Controller
     {
         $id = Crypt::decrypt($ids);
         $budget = Budget::findOrFail($id);
-
 
         return view('depense.add', compact('budget'));
 
@@ -79,12 +84,11 @@ class DepController extends Controller
     public function store(Request $request,$ids)
     {
         $id = Crypt::decrypt($ids);
-        echo $ids;
 
         $depense = new Depense;
         $depense->libelle = $request->input('libelle');
         $depense->montant = $request->input('montant');
-        $depense->User_id = $request->user()->User_id;
+        $depense->User_id = $request->user()->id;
         $depense->budg_id = $id;
         $depense->description = $request->input('description');
         $depense->save();
@@ -102,7 +106,7 @@ class DepController extends Controller
     {
         $id = Crypt::decrypt($ids);
 
-        $totals = DB::table('budget')->where('id', '=','2')->pluck('total');
+        $totals = DB::table('budgets')->where('budg_id', '=',$id)->pluck('total');
         $gains = Gain::all()->where('budg_id','=',$id);
         $depenses =  Depense::all()->where('budg_id','=',$id);
         $budget = Budget::findOrFail($id);
@@ -156,6 +160,22 @@ class DepController extends Controller
         //
     }
 
+
+
+   public function show($ids){
+
+
+	 $id = Crypt::decrypt($ids);
+	 $depense = Depense::findOrFail($id);
+	return view('depense.show', compact('depense'));
+   }
+
+
+
+
+
+
+
     /**
      * Remove the specified resource from storage.
      *
@@ -167,3 +187,4 @@ class DepController extends Controller
         //
     }
 }
+

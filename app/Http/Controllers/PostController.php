@@ -19,8 +19,8 @@ class PostController extends Controller{
 
     public function __construct(PostRepository $postRepository){
 
-        $this->middleware('auth', ['except' => 'index']);
-
+        $this->middleware('auth');
+	$this->middleware('check');
 	$this->postRepository = $postRepository;
 
 	}
@@ -70,7 +70,7 @@ class PostController extends Controller{
         $posts->titre  = $request->input('Titre');
         $posts->description = $request->input('Description');
         $posts->User_id = $request->user()->id;
-	$posts->option = $request->input('Option_Nom');
+	$posts->option= $request->input('Option_Nom');
 	$posts->bac = $request->input('Bac');
 	$posts->doc = $filename;
         $posts->save();
@@ -128,15 +128,22 @@ class PostController extends Controller{
 
         $posts = Post::findOrFail($id);
 
-        if(auth()->user()->id !== $posts->User_id){
+        if(auth()->user()->membre == 1){
+	
+	$posts->delete();
+        Session::flash('message', 'Post supprimer !');
+        return redirect(route('post.index'));
+	
+	 
 
-            return redirect(route('post.index'));
+        }else if(auth()->user()->id !== $posts->User_id){
 
-        }
+        return redirect(route('post.index'));
+	}else{
 
         $posts->delete();
 	Session::flash('message', 'Post supprimer !');
 	return redirect(route('post.index'));
-	
+	}
 	}
 }

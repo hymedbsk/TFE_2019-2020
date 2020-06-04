@@ -24,8 +24,7 @@ class RoleController extends Controller
         $this->userRepository = $userRepository;
 
         $this->middleware('auth');
-        $this->middleware('president');
-        $this->middleware('superadmin');
+
 	}
     public function index()
     {
@@ -118,5 +117,6 @@ class RoleController extends Controller
 
     return redirect(route('role.index'));
 
+    }
 }
-}
+

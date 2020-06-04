@@ -16,16 +16,20 @@ class Tresorier
      * @param  \Closure  $next
      * @return mixed
      */
-    public function handle($request, Closure $next)
-    {    $user = Auth::user();
+    public function handle($request, Closure $next){
 
 
-            // do something with role here
-
-        if ($user->roles=='Trésorier'){
-			return $next($request);
-
+	 $user = Auth::user();
+        if($user->roles->first()){
+            foreach($user->roles as $role){
+                if($role->nom == "Président" || $role->nom == "Super Admin" || $role->nom == "Trésorier" || $role->nom == "Vice-président" ){
+                    return $next($request);
+                }
+                return redirect('/');
+            }
+        } return redirect('/');
     }
-		return new RedirectResponse(url('/'));
-    }
+
+
 }
+

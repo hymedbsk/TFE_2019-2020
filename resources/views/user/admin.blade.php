@@ -1,0 +1,76 @@
+@extends('layouts.log')
+@section('content')
+<header class="masthead">
+  <div class="intro-text">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-md-12">
+          <div class="card">
+            <div class="card-header">
+
+              <p>
+                <img src="{{ asset('/img/che2head.png') }}" alt="logo che2">
+                <h3 class="panel-title">Gestion des admins</h3>
+                @include('message')
+              </p>
+            </div>
+            <div class="card-body">
+              {{ $links }}
+              <input class="form-control" id="myInput" type="text" placeholder="Recherche...">
+              <script>
+                $(document).ready(function () {
+                  $("#myInput").on("keyup", function () {
+                    var value = $(this).val().toLowerCase();
+                    $("#myList").filter(function () {
+                      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                    });
+                  });
+                });
+              </script>
+
+              <div class="table-responsive">
+                <table class="table">
+
+                  <thead>
+                    <th class="scope">Matricule</th>
+                    <th class="scope">Nom</th>
+                    <th class="scope">Prénom</th>
+                    <th class="scope">Email</th>
+                    <th></th>
+                  </thead>
+                  <tbody>
+                    @foreach($users as $user)
+                      <tr id="myList">
+                        <td class="text-primary"><strong>{!! $user->matricule !!}</strong></td>
+                        <td class="text-primary"><strong>{!! $user->nom !!}</strong></td>
+                        <td class="text-primary"><strong>{!! $user->prenom !!}</strong></td>
+                        <td class="text-primary"><strong>{!! $user->email !!}</strong></td>
+                        <td>
+                          @if($user->membre == 0)
+                            {!! Form::open([ 'method'=>'put', 'route' => ['admin.add', $user->id, 'method'=>'put']]) !!}
+                            {!! Form::submit('Passer membre', ['class' => 'btn btn-success btn-block', 'onclick' =>
+                            'return confirm(\'Vraiment le passer membre ?\')']) !!}
+                            {!! Form::close() !!}
+                          @endif
+                          @if($user->membre == 1)
+
+                            {!! Form::open([ 'method'=>'put', 'route' => ['admin.add', $user->id, 'method'=>'put']]) !!}
+                            {!! Form::submit('Enlever membre', ['class' => 'btn btn-warning btn-block', 'onclick' =>
+                            'return confirm(\'Vraiment le retirer des membres ?\')']) !!}
+                            {!! Form::close() !!}
+                        </td>
+                    @endif
+                    </tr>
+                    @endforeach
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+@endsection

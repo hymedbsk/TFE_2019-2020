@@ -4,7 +4,7 @@ namespace App\Http\Middleware;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Closure;
 use Illuminate\Http\RedirectResponse;
-
+use Auth;
 class Membre
 {
     /**
@@ -16,8 +16,11 @@ class Membre
      */
     public function handle($request, Closure $next)
     {
-      
-		return new RedirectResponse(url('home'));
+      	if(Auth::user()->membre == 1){
+            return $next($request);
+        }
+
+	return new RedirectResponse(url('home'));
     }
 }
 
