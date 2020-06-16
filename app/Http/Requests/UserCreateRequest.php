@@ -16,10 +16,10 @@ class UserCreateRequest extends FormRequest
 	public function rules()
 	{
 		return [
-			'matricule' => ['required', 'string', 'max:8', 'unique:users'],
+			'matricule' => ['required', 'string', 'max:8', 'unique:utilisateurs'],
             'nom' => ['required', 'string', 'max:255', 'min:1'],
             'prenom' => ['required', 'string', 'max:255', 'min:1'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:utilisateurs'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
 		];
 	}

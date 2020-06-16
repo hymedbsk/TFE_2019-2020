@@ -44,7 +44,7 @@ class PostController extends Controller{
         	$filters = Input::get('Option_Nom');
         	$filters2 = Input::get('Bac');
         	$posts = Post::where([ ['option', '=', $filters], ['bac', '=', $filters2],])->paginate(6)->appends('option',$filters);
-		Session::flash('message', 'Résultat pour votre filtre'); 
+		Session::flash('message', 'Résultat pour votre filtre : '.$filters.' bac '.$filters2); 
 		return view('post.list')->with(compact('posts', 'links'));
 
 
@@ -62,8 +62,8 @@ class PostController extends Controller{
 	public function store(PostRequest $request){
 	
 	$file = $request->file('Nom_doc');
-        $filename = $file->getClientOriginalName();
-        $file->storeAs('public', $filename);
+        $filename = preg_replace('/\s+/', '', $file->getClientOriginalName());
+        $file->storeAs('public/post/vzRzaYm9dF95Uca8unJ0vunMydT7vpp8bJcFmywHF9IAauRl2TSK010juQeGUiZ92aLK2TXGOKGsM0v4dpzFdOU4GkippB21', $filename);
         $input['Nom_doc'] = $filename;
 
         $posts = new Post;
@@ -79,14 +79,10 @@ class PostController extends Controller{
             'Description' => $request ->Description,
             'User_id' => $request->user()->User_id,
         ]);*/
-
+		Session::flash('message', 'Annonce crée !');
 		return redirect(route('post.index'))->withOk("Annonce crée");
     }
-	  public function download($url){
-
-        return $url;
-    }
-
+	  
 
     public function edit($id){
 
@@ -105,11 +101,17 @@ class PostController extends Controller{
     }
 
 
+    public function download($file){
+
+	 return response()->download(storage_path("app/public/post/vzRzaYm9dF95Uca8unJ0vunMydT7vpp8bJcFmywHF9IAauRl2TSK010juQeGUiZ92aLK2TXGOKGsM0v4dpzFdOU4GkippB21/".$file));
+
+   }
+
     public function update(PostRequest $request, $id){
 
 	$file = $request->file('Nom_doc');
         $filename = $file->getClientOriginalName();
-        $file->storeAs('public', $filename);
+        $file->storeAs('post', $filename);
         $input['Nom_doc'] = $filename;
 
         $posts = Post::find($id);
@@ -131,7 +133,7 @@ class PostController extends Controller{
         if(auth()->user()->membre == 1){
 	
 	$posts->delete();
-        Session::flash('message', 'Post supprimer !');
+        Session::flash('message', 'Post supprimé !');
         return redirect(route('post.index'));
 	
 	 

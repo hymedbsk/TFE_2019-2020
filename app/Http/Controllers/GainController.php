@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\Session;
 use App\Budget;
 use App\Gain;
 class GainController extends Controller
@@ -17,8 +18,9 @@ class GainController extends Controller
     public function __construct(){
 
         $this->middleware('auth');
+	$this->middleware('verified');
+        $this->middleware('membre');
         $this->middleware('tresorier', ['except' => 'index']);
-
 
 	}
 
@@ -37,7 +39,6 @@ class GainController extends Controller
     {
         $id = Crypt::decrypt($ids);
         $budget = Budget::findOrFail($id);
-
 
         return view('gain.add', compact('budget'));
     }
@@ -105,9 +106,13 @@ class GainController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($ids)
     {
-        //
+        $id = Crypt::decrypt($ids);
+	$gain = Gain::findOrFail($id);
+        $gain->delete();
+	Session::flash('message', 'Gain supprimé');
+	return redirect('budget/'.Crypt::encrypt($gain->budg_id));
     }
 }
 

@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\RoleRequest;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Requests\TeRequests;
+use Illuminate\Support\Facades\DB;
 
 class RoleController extends Controller
 {
@@ -17,22 +18,24 @@ class RoleController extends Controller
 
     protected $userRepository;
 
-    protected $nbrPerPage = 10;
+    protected $nbrPerPage = 50;
 
     public function __construct(UserRepository $userRepository)
 	{
         $this->userRepository = $userRepository;
 
         $this->middleware('auth');
-
+	$this->middleware('verified');
+        $this->middleware('membre');
+	$this->middleware('president');
 	}
     public function index()
     {
         $users = $this->userRepository->getPaginate($this->nbrPerPage);
         $links = $users->render();
-        $roles = Role::all();
+        $roles = DB::table('role')->where('nom', '!=', 'Super Admin')->get();
 
-		return view('role.gestion', compact('users', 'links','roles'));
+        return view('role.gestion', compact('users', 'links','roles'));
     }
 
 

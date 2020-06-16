@@ -6,7 +6,7 @@ use App\Http\Requests\UserCreateRequest;
 use App\Http\Requests\UserUpdateRequest;
 use Illuminate\Support\Facades\Session;
 use App\Repositories\UserRepository;
-
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -19,8 +19,10 @@ class UserController extends Controller
     public function __construct(UserRepository $userRepository)
 	{
 		 $this->middleware('auth');
-		/*$this->middleware('check');*/
-		/*$this->middleware('membre');*/
+		$this->middleware('verified');
+                $this->middleware('membre');
+                $this->middleware('admin');
+		 
 		$this->userRepository = $userRepository;
 	}
 
@@ -53,13 +55,17 @@ class UserController extends Controller
 		return view( 'user.add');
 	}
 
-	public function store(UserCreateRequest $request)
+	public function store(UserCreateRequest $data)
 	{
-		$this->setAdmin($request);
 
-		$user = $this->userRepository->store($request->all());
-
-		return redirect('user')->withOk("L'utilisateur " . $user->name . " a été créé.");
+	User::create([
+            'nom' => $data['nom'],
+            'prenom' => $data['prenom'],
+            'matricule' => $data['matricule'],
+            'email' => $data['email'],
+            'password' => Hash::make($data['password']),
+        ]);
+	  return redirect('user');
 	}
 	
 	public function show($id)
@@ -76,12 +82,14 @@ class UserController extends Controller
 		return view('user.edit',  compact('user'));
 	}
 
-	public function update(UserUpdateRequest $request, $id)
-	{
-		
+	public function update(UserUpdateRequest $request, $ids){
 
-		$this->userRepository->update($id, $request->all());
-		  return redirect('user');
+		$user = User::findOrFail($ids);
+		$user->nom = $request->input('nom');
+		$user->prenom = $request->input('prenom');
+		$user->email = $request->input('email');
+		$user->save();
+		return redirect('user');
 		
 	}
 
@@ -91,30 +99,4 @@ class UserController extends Controller
 
 		return redirect()->back();
 	}
-
-	public function admin($user){
-
-       		 $userToValid = User::findOrFail($user);
-        	
-             	User::where('id','=', $userToValid->id)->update(['membre'=> 1]);
-		Session::flash('message','Utilisateur mis à jour');
-       		 return redirect('user');
-    
-	}
-
-	public function delAdmin($user){
-       	    $userToValid = User::findOrFail($user);
-
-           User::where('id','=', $userToValid->id)->update(['membre'=> 0]);
-	   Session::flash('message', 'Utilisateur mis�à jour');
-            return redirect('user');
-
-        }
-	private function setAdmin($request)
-        {
-                if(!$request->has('membre'))
-                {
-                        $request->merge(['membre' => 0]);
-                }
-        }
 }

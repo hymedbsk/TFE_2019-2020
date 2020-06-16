@@ -10,11 +10,12 @@ class User extends Authenticatable implements MustVerifyEmail
 {
     use Notifiable;
 
-	 use SoftDeletes;
-    const DELETED_AT = 'date_supp';
-    protected $table = 'users';
+   use SoftDeletes;
+    protected $table = 'utilisateurs';
     protected $primaryKey = 'id'; 
-       
+    const DELETED_AT = 'date_supp';
+     const CREATED_AT = "date_cree";
+    const UPDATED_AT = 'date_maj';
  /**
      * The attributes that are mass assignable.
      *

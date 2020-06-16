@@ -17,7 +17,7 @@ class PostRepository
 	public function getPaginate($n)
 	{
 		return $this->post->with('user')
-		->orderBy('post.Date', 'desc')
+		->orderBy('post.date_cree', 'desc')
 		->paginate($n);
 	}
 

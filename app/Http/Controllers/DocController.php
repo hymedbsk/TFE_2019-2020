@@ -16,6 +16,12 @@ class DocController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct(){
+
+	$this->middleware('auth');
+	$this->middleware('membre');
+	$this->middleware('verified');
+     }
     public function index()
     {
         $docs = Doc::all();
@@ -49,7 +55,7 @@ class DocController extends Controller
 
         Doc::create([
             'nom' => $request->nom,
-            'cree_par' => $request->user()->User_id,
+            'user_id' => $request->user()->id,
         ]);
         return redirect('document');
     }
@@ -99,8 +105,12 @@ class DocController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($ids)
     {
-        //
+	$id = Crypt::decrypt($ids);
+        $doc = Doc::findOrFail($id);
+	$doc->delete();
+	
+	return redirect('document');
     }
 }

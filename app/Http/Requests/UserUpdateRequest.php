@@ -14,7 +14,7 @@ class UserUpdateRequest extends FormRequest
 
 	public function rules()
 	{
-		$id = $this->user()->id;
+		
         return [
             
         ];

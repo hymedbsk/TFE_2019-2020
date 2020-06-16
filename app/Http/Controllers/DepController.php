@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 use App\Budget;
 use App\Gain;
 use App\Depense;
@@ -20,8 +21,9 @@ class DepController extends Controller
 
         $this->middleware('auth');
         $this->middleware('tresorier', ['except' => 'index']);
-
-	}
+	$this->middleware('verified');
+        $this->middleware('membre');
+    }
 
     /**
      * Display a listing of the resource.
@@ -33,9 +35,9 @@ class DepController extends Controller
         $id = Crypt::decrypt($ids);
 	
         $totals = DB::table('budgets')->where('budg_id', '=',  $id)->pluck('total');
-        $gains = Gain::all()->where('budg_id','=',$id);
-        $depenses =  Depense::all()->where('budg_id','=',$id);
-        $budget = Budget::findOrFail($id);
+        $gains = Gain::orderBy("date_cree","desc")->where('budg_id','=',$id)->where('date_supp','=',NULL)->get();
+        $depenses =  Depense::orderBy("date_cree","desc")->where('budg_id','=',$id)->where('date_supp','=',NULL)->get();
+        $budget = Budget::withTrashed()->findOrFail($id);
 
 
 
@@ -61,6 +63,9 @@ class DepController extends Controller
         $this->tot +=  $this->totGain;
             return view('depense.list', compact('depenses','gains','totals','budget'))->with('totGain', $this->totGain)->with('totDepense',$this->totDepense)->with('tot',$this->tot);
     }
+     
+
+
     /**
      * Show the form for creating a new resource.
      *
@@ -106,9 +111,9 @@ class DepController extends Controller
     {
         $id = Crypt::decrypt($ids);
 
-        $totals = DB::table('budgets')->where('budg_id', '=',$id)->pluck('total');
-        $gains = Gain::all()->where('budg_id','=',$id);
-        $depenses =  Depense::all()->where('budg_id','=',$id);
+        $totals = DB::table('budgets')->where('budg_id', '=',$id)->where('date_supp','=',NULL)->pluck('total');
+        $gains = Gain::all()->where('budg_id','=',$id)->where('date_supp','=',NULL);
+        $depenses =  Depense::all()->where('budg_id','=',$id)->where('date_supp','=',NULL);
         $budget = Budget::findOrFail($id);
 
 
@@ -182,9 +187,13 @@ class DepController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($ids)
     {
-        //
+        $id = Crypt::decrypt($ids);
+        $dep = Depense::findOrFail($id);
+        $dep->delete();
+        Session::flash('message', 'Depense supprimée');
+        return redirect('budget/'.Crypt::encrypt($dep->budg_id));
     }
 }
 

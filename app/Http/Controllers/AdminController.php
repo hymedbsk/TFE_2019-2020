@@ -18,6 +18,10 @@ class AdminController extends Controller
     public function __construct(UserRepository $userRepository)
 	{
 		$this->userRepository = $userRepository;
+		$this->middleware('auth');
+		$this->middleware('verified');
+		$this->middleware('membre');
+		$this->middleware('admin');
 	}
 
 	public function index()
@@ -38,8 +42,8 @@ class AdminController extends Controller
        		 return redirect('admin');
 		}
 		else if($userToValid->membre == 1){
-		 User::where('id','=', $userToValid->id)->update(['membre'=> 0]);
-           Session::flash('message', 'Utilisateur mise    jour');
+		 	User::where('id','=', $userToValid->id)->update(['membre'=> 0]);
+           	Session::flash('message', 'Utilisateur mise    jour');
             return redirect('admin');
 					
 

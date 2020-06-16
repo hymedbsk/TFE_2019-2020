@@ -24,7 +24,7 @@ class FileRequest extends FormRequest
     public function rules()
     {
         return [
-            'Nom_doc' => 'mimes:doc,docx,pdf,xlsx,ppt,txt'
+            'Nom_doc' => 'required|max:30000',
         ];
     }
 }

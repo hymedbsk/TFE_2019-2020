@@ -27,22 +27,15 @@ class BudgetController extends Controller
     public function __construct(){
 
       $this->middleware('auth');
-
-
+      $this->middleware('verified');
+      $this->middleware('membre');
+      $this->middleware('tresorier',['except'=>['index']]); 
 
     }
 
-	public function test(){
 
-	$user = Auth::user();
 
-	foreach($user->roles as $role){
-
-echo $role->nom;
-}
-
-}
-    public function supp(){
+    public function historique(){
 
         $budgets = Budget::withTrashed()->get();
 
@@ -51,7 +44,7 @@ echo $role->nom;
     }
     public function index(){
 
-        $budgets = Budget::withTrashed()->get();
+        $budgets = Budget::withTrashed()->orderBy("date_cree","desc")->get();
 
         return view('budget.list', compact('budgets'));
 
@@ -96,7 +89,7 @@ echo $role->nom;
     {
 
         $budgets = DB::table('budgets')->where('budg_id', '=',$id)->pluck('total');
-        $depenses =  Depense::all()->where('budg_id','=',$id);
+        $depenses =  Depense::withTrashed()->where('budg_id','=',$id);
 
         foreach ($depenses as $depense) {
 
