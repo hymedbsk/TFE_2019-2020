@@ -2,14 +2,12 @@
 
 @section('content')
 
-<header class="masthead">
+<section class="page-section">
     <div class="intro-text">
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-md-8">
-
                     <div class="card">
-
                         <div class="card-header">
                             <p>
                                 <img src="http://www.che2-ephec.be/img/che2head.png" alt="logo che2">
@@ -86,4 +84,4 @@
             </div>
         </div>
     </div>
-</header>
+</section>

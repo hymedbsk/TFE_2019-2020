@@ -2,7 +2,7 @@
 
 @section('content')
 
-<header class="masthead">
+<section class="page-section">
     <div class="intro-text">
         <div class="container">
             <div class="row justify-content-center">
@@ -62,7 +62,7 @@
                 <div class="col-md-4">
                     <div class="card shadow p-3 mb-5 bg-white rounded">
                         <div class="card-body">
-                            <a href="{{ url('/#') }}">
+                            <a href="{{ url('/document') }}">
                                 <h5 class="card-title"><i style="color:#fed136" class="fas fa-folder-open fa-4x"></i>
                                 </h5>
                                 <p class="card-text"><strong>Partage de document</p></strong>
@@ -89,7 +89,7 @@
                 <div class="col-md-4">
                     <div class="card shadow p-3 mb-5 bg-white rounded">
                         <div class="card-body">
-                            <a href="{{ url('/role') }}">
+                            <a href="{{ url('/event') }}">
                                 <h5 class="card-title"><i style="color:#fed136" class="fas fa-calendar-alt fa-4x"></i>
                                 </h5>
                                 <p class="card-text"><strong>Calendrier</p></strong>
@@ -103,7 +103,7 @@
                 <div class="col-md-4">
                     <div class="card shadow p-3 mb-5 bg-white rounded">
                         <div class="card-body">
-                            <a href="{{ url('/role') }}">
+                            <a href="{{ url('/membre/annonce') }}">
                                 <h5 class="card-title"><i style="color:#fed136" class="fas fa-bullhorn fa-4x"></i></h5>
                                 <p class="card-text"><strong>Gestion des annonces</p></strong>
                                 <a class="card-text"></a>
@@ -113,22 +113,9 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4">
-                    <div class="card shadow p-3 mb-5 bg-white rounded">
-                        <div class="card-body">
-                            <a href="{{ url('/role') }}">
-                                <h5 class="card-title"><i style="color:#fed136" class="fas fa-comment-alt fa-4x"></i>
-                                </h5>
-                                <p class="card-text"><strong>Tchat </p></strong>
-                                <a class="card-text"></a>
-                                <a class="card-text"></a>
-                                <p class="sub-card"> </p>
-                            </a>
-                        </div>
-                    </div>
-                </div>
+                
             </div>
         </div>
     </div>
-</header>
+</section>
 @endsection

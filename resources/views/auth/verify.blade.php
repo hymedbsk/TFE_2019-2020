@@ -2,7 +2,6 @@
 
 @section('content')
 
-
 <header class="masthead">
     <div class="intro-text">
         <div class="container-fluid">

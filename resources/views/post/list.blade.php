@@ -2,7 +2,7 @@
 
 @section('content')
 
-<header class="masthead">
+<section class="page-section">
   <div class="intro-text">
     <div class="container">
       <div class="row justify-content-center">
@@ -15,16 +15,17 @@
                   <div class="row">
                     <div class="col-md-5 option">
                       <select name='Option_Nom' class=" form-control border-info option">
-                        <option value="DT">Droit</option>
-                        <option value="IT">Technologie de l'informatique</option>
-                        <option value="CX">Commerce Extérieur</option>
-                        <option value="CO">Comptabilité</option>
-                        <option value="EB">e-Business</option>
-                        <option value="EM">Électromécanique</option>
-                        <option value="MA">Marketing</option>
-                        <option value="AU">Automatique</option>
+                        <option value="Droit">Droit</option>
+                        <option value="Technologie de l'informatique">Technologie de l'informatique</option>
+                        <option value="Commerce Extérieur">Commerce Extérieur</option>
+                        <option value="Comptabilité">Comptabilité</option>
+                        <option value="e-Business">e-Business</option>
+                        <option value="Electromécanique"> Electromécanique</option>
+                        <option value="Marketing">Marketing</option>
+                        <option value="Automatique">Automatique</option>
                       </select>
                     </div>
+                    <br>
                     <div class="col-md-3 bac">
                       <select name='Bac' class=" form-control border-info">
                         <option value="1">Bac 1</option>
@@ -56,11 +57,12 @@
               <h5 class="card-title">{{ $post->titre }}</h5>
               <hr>
               <p class="card-text">{{ $post->description }}</p>
-              <a class="card-text" href="{{ url('download/'.$post->doc) }}"> {{ $post->doc }}
-              </a>
-              <p class="sub-card"> le {!! $post->date->format('d-m-Y') !!} </p>
+              <a class="card-text" href="{{ url('/post/download/'.$post->doc) }}">
+                {{ $post->doc }} </a>
+              <p class="sub-card"> {!! $post->option !!} bac {{ $post->bac }} </p>
+              <p class="sub-card"> le {!! $post->date_cree->format('d-m-Y') !!} </p>
               
-                @if(Auth::user()->id == $post->User_id || Auth::user()->membre==1)
+                @if(Auth::user()->id == post->User_id || Auth::user()->membre == 1)
                 <a style:
                   href="{{ url('/post/'.$post->Post_id. '/edit') }}"
                   class="btn btn-warning float-left"> Modifier </a>
@@ -85,6 +87,6 @@
 
   </div>
   </div>
-</header>
+</section>
 
 @endsection

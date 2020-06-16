@@ -1,6 +1,6 @@
 @extends('layouts.log')
 @section('content')
-<header class="masthead">
+<section class="page-section">
   <div class="intro-text">
     <div class="container">
       <div class="row justify-content-center">
@@ -27,7 +27,6 @@
                   });
                 });
               </script>
-
               <div class="table-responsive">
                 <table class="table">
 
@@ -51,6 +50,8 @@
                             {!! Form::submit('Passer membre', ['class' => 'btn btn-success btn-block', 'onclick' =>
                             'return confirm(\'Vraiment le passer membre ?\')']) !!}
                             {!! Form::close() !!}
+
+
                           @endif
                           @if($user->membre == 1)
 
@@ -71,6 +72,6 @@
       </div>
     </div>
   </div>
-</header>
+</section>
 
 @endsection

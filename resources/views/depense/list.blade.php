@@ -2,7 +2,7 @@
 
 @section('content')
 
-<header class="masthead">
+<section class="page-section">
     <div class="intro-text">
         <div class="container">
             <div class="row justify-content-center">
@@ -11,6 +11,8 @@
                         <div class="card-header">
                             <img src="{{ asset('/img/che2head.png') }}" alt="logo che2">
                             <h3 style="color:black"> Résumer du budget {{ $budget->nom }} </h3>
+                            <a class="float-left" href="{{ url('/budget') }}"> <i
+                                    class="fas fa-undo-alt"></i></a>
                         </div>
                         <div class="card-body">
                             <p class="card-text">Montant de base :
@@ -25,17 +27,23 @@
                             <p class="card-text">Total des gains : <strong style="color:green"> {{ $totGain }}€ </p>
                             </strong>
                             <p class="card-text">Montant actuel : <strong style="color:blue"> {{ $tot }}€ </p></strong>
-                            <button type="button" class="btn btn-success float-left" data-toggle="modal"
-                                data-target="#gain">Ajouter un gain</button></p>
-
-                            <button type="button" class="btn btn-danger float-right" data-toggle="modal"
-                                data-target="#depense">Ajouter une dépense</button></p>
-                            <a href="{{ url('/downloadPDF/'.Crypt::encrypt($budget->budg_id)) }}"
-                                class="btn btn-warning float-center">Télécharger le PDF du budget</a>
+                            @if($budget->date_supp == NULL)
+                                <button type="button" class="btn btn-success float-left" data-toggle="modal"
+                                    data-target="#gain">Ajouter un gain</button></p>
+                                <button type="button" class="btn btn-danger float-right" data-toggle="modal"
+                                    data-target="#depense">Ajouter une dépense</button></p>
+                                <a href="{{ url('/downloadPDF/'.Crypt::encrypt($budget->budg_id)) }}"
+                                    class="btn btn-warning float-center">Télécharger le PDF du budget</a>
+                                <br>
+                            @else
+                                <p class="card-text" style="color:red">
+                                    Budget supprimé
+                                </p>
+                            @endif
+                            <p>@include('message')</p>
                         </div>
                     </div>
                 </div>
-                @include('message')
             </div>
         </div>
         <div class="container">
@@ -56,7 +64,6 @@
                             </div>
                         </div>
                     </div>
-
                 @endforeach
                 @foreach($gains as $gain)
                     <div class="col-md-4">
@@ -79,7 +86,7 @@
             </div>
         </div>
     </div>
-</header>
+</section>
 
 <div id="gain" class="modal fade" role="dialog">
     <div class="modal-dialog">
@@ -100,14 +107,14 @@
                         <div class="row">
                             <div class="col-md-6">
                                 {!! Form::text('libelle', null, ['class' => 'form-control border-primary', 'placeholder'
-                                => 'Libellé ', 'maxlength' => '50']) !!}
+                                => 'Libellé ', 'maxlength' => '50','required']) !!}
                                 {!! $errors->first('libelle', '<small class="help-block">:message</small>') !!}
                                 <br>
                             </div>
                             <div class="col-md-6">
                                 {!! Form::number('montant', null, ['class' => 'form-control border-primary',
-                                'placeholder' => 'Montant de la dépense', 'maxlength' => '6','min'=>'0','step'=>'0.02'])
-                                !!}
+                                'placeholder' => 'Montant de la dépense', 'maxlength' => '6','min'=>'0','step'=>'0.02',
+                                'required']) !!}
                                 {!! $errors->first('montant', '<small class="help-block">:message</small>') !!}
                             </div>
                         </div>
@@ -119,8 +126,8 @@
                         <div class="col-md-12">
                             <div class="form-group  {!! $errors->has('Description') ? 'has-error' : '' !!}">
                                 {!! Form::textarea('description', null, ['class' => 'form-control border
-                                border-primary','maxlength' => '100', 'placeholder' => 'Petite description de la dépense
-                                (exemple: Achat de biscuits)' ]) !!}
+                                border-primary','maxlength' => '200', 'placeholder' => 'Petite description de la dépense
+                                (exemple: Achat de biscuits)', 'required' ]) !!}
                                 {!! $errors->first('description', '<small class="help-block">:message</small>') !!}
                                 <p class="help-block text-danger"></p>
                             </div>
@@ -157,14 +164,14 @@
                         <div class="row">
                             <div class="col-md-6">
                                 {!! Form::text('libelle', null, ['class' => 'form-control border-primary', 'placeholder'
-                                => 'Libellé ', 'maxlength' => '50']) !!}
+                                => 'Libellé ', 'maxlength' => '50', 'required']) !!}
                                 {!! $errors->first('libelle', '<small class="help-block">:message</small>') !!}
                                 <br>
                             </div>
                             <div class="col-md-6">
                                 {!! Form::number('montant', null, ['class' => 'form-control border-primary',
-                                'placeholder' => 'Montant de la dépense', 'maxlength' => '6','min'=>'0','step'=>'0.02'])
-                                !!}
+                                'placeholder' => 'Montant de la dépense', 'maxlength' =>
+                                '6','min'=>'0','step'=>'0.02','required']) !!}
                                 {!! $errors->first('montant', '<small class="help-block">:message</small>') !!}
                             </div>
                         </div>
@@ -176,8 +183,8 @@
                         <div class="col-md-12">
                             <div class="form-group  {!! $errors->has('Description') ? 'has-error' : '' !!}">
                                 {!! Form::textarea('description', null, ['class' => 'form-control border
-                                border-primary','maxlength' => '100', 'placeholder' => 'Petite description de la dépense
-                                (exemple: Achat de biscuits)' ]) !!}
+                                border-primary','maxlength' => '200', 'placeholder' => 'Petite description de la dépense
+                                (exemple: Achat de biscuits)', 'required' ]) !!}
                                 {!! $errors->first('description', '<small class="help-block">:message</small>') !!}
                                 <p class="help-block text-danger"></p>
                             </div>
@@ -195,4 +202,5 @@
         </div>
     </div>
 </div>
+
 @endsection

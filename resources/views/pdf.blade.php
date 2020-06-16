@@ -73,7 +73,7 @@
     </tbody>
   </table>
 
-  <h2> Liste de toute les dépenses </h2>
+  <h2> Liste de toutes les dépenses </h2>
   <table id="customers">
     <thead>
       <tr>
@@ -96,7 +96,7 @@
     </tbody>
   </table>
 
-  <h2> Liste de tout les gains </h2>
+  <h2> Liste de tous les gains </h2>
   <table id="customers">
     <thead>
       <tr>

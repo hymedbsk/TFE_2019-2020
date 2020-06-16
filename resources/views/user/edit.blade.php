@@ -1,7 +1,7 @@
 @extends('layouts.log')
 
 @section('content')
-<header class="masthead">
+<section class="page-section">
     <div class="intro-text">
         <div class="container">
             <div class="row justify-content-center">
@@ -29,13 +29,6 @@
                                 !!}
                                 {!! $errors->first('email', '<small class="help-block">:message</small>') !!}
                             </div>
-                            <div class="form-group">
-                                <div class="checkbox">
-                                    <label>
-                                        {!! Form::checkbox('membre', 1, null) !!} Membre
-                                    </label>
-                                </div>
-                            </div>
                             {!! Form::submit('Envoyer', ['class' => 'btn btn-primary pull-right']) !!}
                             {!! Form::close() !!}
                         </div>
@@ -48,5 +41,5 @@
             </div>
         </div>
     </div>
-</header>
+</section>
 @endsection

@@ -2,7 +2,7 @@
 
 @section('content')
 
-<header class="masthead">
+<section class="page-section">
     <div class="intro-text">
         <div class="container">
             <div class="row justify-content-center">
@@ -156,6 +156,6 @@
             </div>
         </div>
     </div>
-</header>
+</section>
 
 @endsection

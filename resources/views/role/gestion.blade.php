@@ -1,25 +1,23 @@
 @extends('layouts.log')
 
 @section('content')
-<header class="masthead">
+<section class="page-section">
     <div class="intro-text">
       <div class="container-fluid">
           <div class="row justify-content-center">
               <div class="col-md-8">
                 <div class="card">
                    <div class="card-header">
-                        <h3 class="panel-title">Gestion des rôles </h3>
                         <p>
-                         <img src="{{ asset('/img/che2Head.png')}}" alt="logo che2">
+                         <img src="{{ asset('/img/che2head.png')}}" alt="logo che2">
                         </p>
-                        <p class=" alert alert-danger"> Le rôle "Super Admin" ne peut être attribué qu'à Hymed Boussaklatan</p>
+                        <h3 class="panel-title">Gestion des rôles </h3>
                         <p> @include('message') </p>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
                                 <table class="table">
                                 <thead>
-                                    {!! $links !!}
                                         <th class="scope">Prénom</th>
                                         <th class="scope">Nom</th>
                                         <th class="scope">Rôles</th>
@@ -30,7 +28,7 @@
                                 </thead>
                                 <tbody>
                                         @foreach ($users as $user)
-                                            @if($user->membre==1)
+                                            @if($user->membre  == 1)
                                                 <tr>
                                                     <td class="text-primary"><strong>{!! $user->prenom !!}</strong></td>
                                                     <td class="text-primary"><strong>{!! $user->nom !!}</strong></td>
@@ -76,6 +74,6 @@
             </div>
       </div>
      </div>
-  </header>
+  </section>
 @endsection
 

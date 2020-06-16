@@ -1,7 +1,7 @@
 @extends('layouts.log')
 
 @section('content')
-<header class="masthead">
+<section class="page-section">
     <div class="intro-text">
         <div class="container">
             <div class="row justify-content-center">
@@ -29,18 +29,20 @@
                                     </div>
                                 </div>
                             </div>
+
                             <div class="form-group ">
                                 <div class="row">
                                     <div class="col-md-6">
                                         <select name='Option_Nom' class=" form-control border-primary">
-                                            <option value="IT">Technologie de l'informatique</option>
-                                            <option value="CX">Commerce Extérieur</option>
-                                            <option value="CO">Comptabilité</option>
-                                            <option value="DT">Droit</option>
-                                            <option value="EB">e-Business</option>
-                                            <option value="EM">Électromécanique</option>
-                                            <option value="MA">Marketing</option>
-                                            <option value="AU">Automatique</option>
+                                            <option value="Technologie de l'informatique">Technologie de l'informatique
+                                            </option>
+                                            <option value="Commerce Extérieur">Commerce Extérieur</option>
+                                            <option value="Comptabilité">Comptabilité</option>
+                                            <option value="Droit">Droit</option>
+                                            <option value="e-Business">e-Business</option>
+                                            <option value="Electromécanique">Electromécanique</option>
+                                            <option value="Marketing">Marketing</option>
+                                            <option value="Automatique">Automatique</option>
                                         </select>
                                     </div>
                                     <div class="col-md-6">
@@ -55,12 +57,14 @@
                             <div class="form-group ">
                                 <div class="row">
                                     <div class="col-md-12">
+                                        <p> Max 10MB</p>
                                         {!! Form::file('Nom_doc', ['class' => 'form-control-file border-primary btn
                                         btn-info'] ) !!}
                                         {!! $errors->first('Nom_doc', '<small class="help-block">:message</small>') !!}
                                     </div>
                                 </div>
                             </div>
+
                             <div class="form-group  ">
                                 <div class="row">
                                     <div class="col-md-12">
@@ -69,8 +73,8 @@
                                             border-primary','maxlength' => '200', 'placeholder' => 'Description (ex:
                                             Synthèse bien sympa qui vous permettra de peut-être réussir le cours
                                             d\'anglais ) ', ]) !!}
-                                            {!! $errors->first('texte', '<small class="help-block">:message</small>')
-                                            !!}
+                                            {!! $errors->first('Description', '<small
+                                                class="help-block">:message</small>') !!}
                                             <p class="help-block text-danger"></p>
                                         </div>
                                     </div>
@@ -80,6 +84,8 @@
                                 {!! Form::submit('Envoyer !', ['class' => 'btn btn-info pull-right']) !!}
                                 {!! Form::close() !!}
                             </div>
+
+
                         </div>
                         <a href="javascript:history.back()" class="btn btn-primary">
                             <span class="glyphicon glyphicon-circle-arrow-left"></span> Retour
@@ -88,5 +94,5 @@
                 </div>
             </div>
         </div>
-</header>
+</section>
 @endsection

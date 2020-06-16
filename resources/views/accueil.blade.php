@@ -5,12 +5,15 @@
 
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="icon" type="image/png" href="{{ asset('img/CHE2-150x75.png') }}" />
   <meta name="description" content="">
   <meta name="author" content="">
-  <meta property="og:image" content="{{ asset('img/che2.png') }}">
+  <meta property="og:image" content="{{ asset('img/che2Card.png') }}">
   <title>CHE²-Conseil étudiant</title>
   <script src="https://kit.fontawesome.com/4aa80cefec.js" crossorigin="anonymous"></script>
- 
+  <!-- Bootstrap core CSS -->
+
+  <!-- Custom fonts for this template -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
     integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
@@ -19,11 +22,14 @@
     type='text/css'>
   <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css'>
 
+  <!-- Custom styles for this template -->
   <link href="{{ asset('css/agency.css') }}" rel="stylesheet">
 
 </head>
 
 <body id="page-top">
+  <!-- Navigation -->
+  @include('cookieConsent::index')
 
   <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
     <div class="container">
@@ -38,14 +44,14 @@
         <ul class="navbar-nav text-uppercase ml-auto">
           @guest
             <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="#services">Nos partenaires</a>
+              <a class="nav-link js-scroll-trigger" href="#partenaires">Nos partenaires</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="#portfolio">Photos</a>
+              <a class="nav-link js-scroll-trigger" href="#photos">Photos</a>
             </li>
 
             <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="#about">Nos missions</a>
+              <a class="nav-link js-scroll-trigger" href="#missions">Nos missions</a>
             </li>
           @endguest
           <li class="nav-item">
@@ -84,13 +90,10 @@
             <a class=" dropdown-item nav-item " href="{{ url('/post/create') }}">
               <i class="fas fa-plus-circle"></i> Ajouter une annonce
             </a>
-
             <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
-                        document.getElementById('logout-form').submit();">
+                      document.getElementById('logout-form').submit();">
               <i class="fas fa-door-open"></i> {{ __('Logout') }}
             </a>
-
-
             <form id="logout-form" action="{{ route('logout') }}" method="POST"
               style="display: none;">
               @csrf
@@ -101,14 +104,16 @@
     </div>
   </nav>
 
+  <!-- Header -->
   <header class="masthead">
     <div class="container">
       <div class="intro-text">
-
       </div>
+    </div>
   </header>
 
-  <section class=" bg-light page-section" id="services">
+  <!-- Partenaires -->
+  <section class=" bg-light page-section" id="partenaires">
     <div class="container">
       <div class="row">
         <div class="col-lg-12 text-center">
@@ -137,26 +142,60 @@
       </div>
     </div>
   </section>
-
-  <section class="page-section" id="plateforme">
+  <section class="bg-light page-section" id="annonces">
     <div class="container">
       <div class="row">
-        <div class="col-lg-12 text-center">
-          <h2 class="section-heading text-uppercase">Plateforme du CHE²</h2>
+        <div class="col-md-12 text-center">
+          <h2 class="section-heading text-uppercase" style="color:#fec503">Les Annonces</h2>
           <h3 class="section-subheading text-muted"></h3>
         </div>
       </div>
-      <div class="row alert alert-info">
+      <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+        <div class="carousel-inner">
+          @foreach($annonces as $annonce)
+            <div class="carousel-item ">
+              <div class="col-md-12">
+                <div class="card h-100 float-center text-center max-height alert alert-info ">
+                  <div class="card-body  max-height ">
 
-        <div class="col-lg-12">
-          <p class="plateforme info"> La plateforme du CHE² est un projet qui a pour but de centraliser le partage de
-            documents entre les étudiants, elle permet donc à ceux-ci de partager entre eux leurs documents ( synthèses,
-            plan de cours, TP, etc), qui pourront ainsi directement être télécharger depuis la plateforme </p>
+                    <h5 class="card-title " style="font-size: 35px">{{ $annonce->titre }}</h5>
+
+                    <br />
+                    <p class="card-text " style="font-size: 25px">{{ $annonce->contenu }}</p>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          @endforeach
+          <div class="carousel-item active">
+            <div class="col-md-12">
+              <div class="card h-100 float-center text-center alert alert-info">
+                <div class="card-body alert">
+                  <h5 class="card-title" style="font-size: 35px">PLATEFORME DU CHE²</h5>
+                  <p class="card-text" style="font-size: 25px">La plateforme du CHE² est un projet qui a pour but de
+                    centraliser le partage de documents entre les étudiants, elle permet donc à ceux-ci de partager
+                    entre eux leurs documents ( synthèses, plan de cours, TP, etc), qui pourront ainsi directement être
+                    télécharger depuis la plateforme</p>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
+        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev"
+          style="  font-size: 55px;color: red;">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="sr-only">précédent</span>
+        </a>
+        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="sr-only">suivant</span>
+        </a>
       </div>
+    </div>
   </section>
 
-  <section class="bg-light page-section" id="portfolio">
+  <section class="bg-light page-section" id="photos">
     <div class="container">
       <div class="row">
         <div class="col-lg-12 text-center">
@@ -168,9 +207,7 @@
         <div class="col-md-4 col-sm-6 portfolio-item">
           <a class="portfolio-link" data-toggle="modal" href="#modal24">
             <div class="portfolio-hover">
-              <div class="portfolio-hover-content">
-                <i class="fas fa-plus fa-3x"></i>
-              </div>
+
             </div>
             <img class="img-fluid" src="{{ asset('img/24hChe2.jpg') }}" alt="">
           </a>
@@ -181,9 +218,7 @@
         <div class="col-md-4 col-sm-6 portfolio-item">
           <a class="portfolio-link" data-toggle="modal" href="#portfolioModal2">
             <div class="portfolio-hover">
-              <div class="portfolio-hover-content">
-                <i class="fas fa-plus fa-3x"></i>
-              </div>
+
             </div>
             <img class="img-fluid" src="{{ asset('img/photo/stNicolasLln.png') }}"
               alt="st Nicolas">
@@ -195,9 +230,7 @@
         <div class="col-md-4 col-sm-6 portfolio-item">
           <a class="portfolio-link" data-toggle="modal" href="#portfolioModal3">
             <div class="portfolio-hover">
-              <div class="portfolio-hover-content">
-                <i class="fas fa-plus fa-3x"></i>
-              </div>
+
             </div>
             <img class="img-fluid" src="img/photo/equipe.jpg" alt="équipe 2019-2020">
           </a>
@@ -210,15 +243,7 @@
     </div>
   </section>
 
-  <section class="page-section" id="about">
-    <div class="container">
-      <div class="row">
-
-      </div>
-    </div>
-  </section>
-
-  <section class="page-section" id="propos">
+  <section class="page-section" id="missions">
     <div class="container">
       <div class="row">
         <div class="col-lg-12 text-center">
@@ -291,6 +316,7 @@
             </li>
         </div>
       </div>
+    </div>
   </section>
 
   <!-- Contact -->
@@ -345,6 +371,7 @@
     </div>
   </section>
 
+  <!-- Footer -->
   <footer class="footer">
     <div class="container">
       <div class="row align-items-center">
@@ -354,18 +381,13 @@
         <div class="col-md-4">
           <ul class="list-inline social-buttons">
             <li class="list-inline-item">
-              <a href="#">
-                <i class="fab fa-twitter"></i>
+              <a href="https://www.instagram.com/che2conseil/?hl=fr" target="_blank">
+                <i class="fab fa-instagram"></i>
               </a>
             </li>
             <li class="list-inline-item">
-              <a href="#">
+              <a href="https://www.facebook.com/CHE2Conseil" target="_blank">
                 <i class="fab fa-facebook-f"></i>
-              </a>
-            </li>
-            <li class="list-inline-item">
-              <a href="#">
-                <i class="fab fa-linkedin-in"></i>
               </a>
             </li>
           </ul>
@@ -373,10 +395,11 @@
         <div class="col-md-4">
           <ul class="list-inline quicklinks">
             <li class="list-inline-item">
-              <a href="#">Politique de confidantialitée</a>
+              <strong> <a href="{{ url('confidentialite') }}">Politique de
+                  confidantialitée</a></strong>
             </li>
             <li class="list-inline-item">
-              <a href="#">Condition d'utilisation</a>
+              <strong> <a href="{{ url('cgu') }}">Conditions générales d'utilisation</a></strong>
             </li>
           </ul>
         </div>
@@ -389,14 +412,14 @@
       <div class="modal-content">
         <div class="close-modal" data-dismiss="modal">
           <div class="lr">
-            <div class="rl"></div>
+            <div class="rl">
+            </div>
           </div>
         </div>
         <div class="container">
           <div class="row">
             <div class="col-lg-10 mx-auto">
               <div class="modal-body">
-
                 <p><img class="img-fluid" src="img/photo/24hChe2.png" alt="24h che2">
                   <p>
                     <p><img class="img-fluid" src="img/back2.jpg" alt="24h che2">
@@ -405,6 +428,7 @@
                           <p>
                             <p><img class="img-fluid" src="img/back_contact.jpg" alt="24h che2">
                               <p>
+
               </div>
             </div>
           </div>
@@ -412,47 +436,17 @@
       </div>
     </div>
   </div>
-  </div>
   <div class="portfolio-modal modal fade" id="modalSt" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog">
       <div class="close-modal" data-dismiss="modal">
         <div class="lr">
-          <div class="rl"></div>
-        </div>
-      </div>
-      <div class="container">
-        <div class="row"> 
-          <div class="modal-body">
-
-            <p><img class="img-fluid" src="img/photo/24hChe2.png" alt="24h che2">
-              <p>
-                <p><img class="img-fluid" src="img/back2.jpg" alt="24h che2">
-                  <p>
-                    <p><img class="img-fluid" src="img/back3.jpg" alt="24h che2">
-                      <p>
-                        <p><img class="img-fluid" src="img/back_contact.jpg" alt="24h che2">
-                          <p>
-
+          <div class="rl">
           </div>
         </div>
       </div>
-    </div>
-  </div>
-  </div>
-  </div>
-  </div>
-
-  <div class="portfolio-modal modal fade" id="modalEquipe" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog"> 
-      <div class="close-modal" data-dismiss="modal">
-        <div class="lr">
-          <div class="rl"></div>
-        </div>
-      </div>
       <div class="container">
-        <div class="row"> 
+        <div class="row">
           <div class="modal-body">
-
             <p><img class="img-fluid" src="img/photo/24hChe2.png" alt="24h che2">
               <p>
                 <p><img class="img-fluid" src="img/back2.jpg" alt="24h che2">
@@ -466,15 +460,17 @@
       </div>
     </div>
   </div>
-  </div>
-  </div>
-  </div>
 
-
+  <!-- Bootstrap core JavaScript -->
   <script src="{{ asset('/js/jquery/jquery.min.js') }}"></script>
   <script src="{{ asset('/js/bootstrap.bundle.min.js') }}"></script>
+
+  <!-- Plugin JavaScript -->
   <script src="{{ asset('/js/jquery-easing/jquery.easing.min.js') }}"></script>
+
   <script src="https://www.google.com/recaptcha/api.js"> </script>
+
+  <!-- Custom scripts for this template -->
   <script src="{{ asset('/js/agency.min.js') }}"></script>
 
 </body>

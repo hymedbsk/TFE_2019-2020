@@ -7,24 +7,22 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="">
   <meta name="author" content="">
-
+  <link rel="icon" type="image/png" href="{{ asset('img/CHE2-150x75.png') }}" />
   <title>CHE²-Conseil étudiant</title>
 
-  <!-- Bootstrap core CSS -->
+  <link href="{{ asset('css/log.css') }}" rel="stylesheet">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
     integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-  <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
-  <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
-    integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
-  <!-- Custom fonts for this template -->
+
   <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
   <link href='https://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css'>
   <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet'
     type='text/css'>
+  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.1.0/fullcalendar.min.css' />
   <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css'>
-  <script src="https://www.google.com/recaptcha/api.js"></script>
-  <!-- Custom styles for this template -->
+
   <link href="{{ asset('css/log.css') }}" rel="stylesheet">
+
   <script src="https://kit.fontawesome.com/4aa80cefec.js" crossorigin="anonymous"></script>
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
     integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
@@ -35,13 +33,18 @@
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
     integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
   </script>
+  <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.3.0/jquery.form.js"
+    integrity="sha256-jpjDsy3bqvK8WWVXR5J+30Sx1WlP74nmtNQc9m1qBSs=" crossorigin="anonymous"></script>
 
+  <script src="https://www.google.com/recaptcha/api.js"></script>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.min.js'></script>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.1.0/fullcalendar.min.js'></script>
 </head>
 
 <body id="page-top">
 
-  <!-- Navigation -->
   <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
     <div class="container">
       <a class="navbar-brand js-scroll-trigger" href="{{ url('/') }}">CHE²-Conseil Etudiant</a>
@@ -49,7 +52,7 @@
         data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
         aria-label="Toggle navigation">
         Menu
-        <i class="fas fa-bars"></i>
+        <i class="fas fa-bars fa-1x" style="color:white"></i>
       </button>
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav text-uppercase ml-auto">
@@ -62,8 +65,7 @@
           </li>
           @guest
             <li class="nav-item">
-              <i class="fad fa-portal-enter"> <a class="nav-link js-scroll-trigger"
-                  href="{{ url('/login') }}">Connexion</a></i>
+              <a class="nav-link js-scroll-trigger" href="{{ url('/login') }}">Connexion</a>
             </li>
           @endguest
         </ul>
@@ -119,17 +121,10 @@
     integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
   </script>
 
-  <!-- Bootstrap core JavaScript -->
   <script src="{{ asset('/js/jquery/jquery.min.js') }}"></script>
   <script src="{{ asset('/js/bootstrap.bundle.min.js') }}"></script>
-
-  <!-- Plugin JavaScript -->
   <script src="{{ asset('/js/jquery-easing/jquery.easing.min.js') }}"></script>
-
-
-
-  <!-- Custom scripts for this template -->
-  <script src="{{ asset('/js/agency.min.js') }}"></script>
+ <script src="{{ asset('/js/agency.min.js') }}"></script>
 </body>
 
 </html>

@@ -1,7 +1,7 @@
 @extends('layouts.log')
 
 @section('content')
-<header class="masthead">
+<section class="page-section">
   <div class="intro-text">
     <div class="container">
       <div class="row justify-content-center">
@@ -46,21 +46,23 @@
                   </thead>
                   <tbody>
                     @foreach($users as $user)
-                      <tr id="myList">
-                        <td class="text-primary"><strong>{!! $user->matricule !!}</strong></td>
-                        <td class="text-primary"><strong>{!! $user->email !!}</strong></td>
-                        <td class="text-primary"><strong>{!! $user->nom !!}</strong></td>
-                        <td class="text-primary"><strong>{!! $user->prenom !!}</strong></td>
-                        <td>{!! link_to_route('user.edit', 'Modifier', [$user->id], ['class' => 'btn btn-warning
-                          btn-block']) !!}</td>
-                        <td>
-                          {!! Form::open(['method' => 'DELETE', 'route' => ['user.destroy', $user->id]]) !!}
-                          {!! Form::submit('Supprimer', ['class' => 'btn btn-danger btn-block', 'onclick' => 'return
-                          confirm(\'Vraiment supprimer cet utilisateur ?\')']) !!}
-                          {!! Form::close() !!} </td>
-                        <td>
+                      @if($user->compte_check == 1)
+                        <tr id="myList">
+                          <td class="text-primary"><strong>{!! $user->matricule !!}</strong></td>
+                          <td class="text-primary"><strong>{!! $user->email !!}</strong></td>
+                          <td class="text-primary"><strong>{!! $user->nom !!}</strong></td>
+                          <td class="text-primary"><strong>{!! $user->prenom !!}</strong></td>
+                          <td>{!! link_to_route('user.edit', 'Modifier', [$user->id], ['class' => 'btn btn-warning
+                            btn-block']) !!}</td>
+                          <td>
+                            {!! Form::open(['method' => 'DELETE', 'route' => ['user.destroy', $user->id]]) !!}
+                            {!! Form::submit('Supprimer', ['class' => 'btn btn-danger btn-block', 'onclick' => 'return
+                            confirm(\'Vraiment supprimer cet utilisateur ?\')']) !!}
+                            {!! Form::close() !!} </td>
+                          <td>
 
-                      </tr>
+                        </tr>
+                      @endif
                     @endforeach
                   </tbody>
                 </table>
@@ -72,6 +74,6 @@
       </div>
     </div>
   </div>
-</header>
+</section>
 
 @endsection
