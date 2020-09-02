@@ -1,0 +1,60 @@
+@extends('layouts.log')
+
+@section('content')
+    <header class="masthead">
+        <div class="intro-text">
+            <div class="container-fluid">
+                @if(session()->has('ok'))
+                    <div class="alert alert-success alert-dismissible">{!! session('ok') !!}</div>
+                @endif
+                <div class="row justify-content-center">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <p>  <img src="{{ asset('/img/che2head.png') }}" alt="logo che2"></p>
+                                <h3> Valider les posts </h3>
+                            </div>
+                            <div class="card-body table-responsive">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <strong><th>Auteur</th></strong>
+                                            <strong><th>Titre</th></strong>
+                                            <strong><th>Description</th></strong>
+					    <strong><th>Document</th></strong>
+					    <strong><th></th></strong>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($posts as $post)
+
+                                                <tr>
+						     <td class="text-primary"><strong>{!! $post->user->matricule !!}</strong></td>                                                  
+                                               	     <td class="text-primary"><strong>{!! $post->titre !!}</strong></td>
+						     <td class="text-primary"><strong>{!! $post->description !!}</strong></td>
+						     <td class="text-primary"><strong><a href=" {!!  url('post/admin/view/'.$post->user->matricule.'/'.$post->doc) !!}">  {{ $post->doc}}  </a></strong></td>
+						      <td>
+                                                    {!! Form::open(['method' => 'put', 'route' => ['post.check', Crypt::encrypt($post->Post_id)]]) !!}
+                                                    {!! Form::submit('Valider', ['class' => 'btn btn-success btn-block', 'onclick' => 'return confirm(\'Voulez-vous vraiment valider ce post ?\')']) !!}
+                                                    {!! Form::close() !!}
+                                                    </td>
+                                                    <td>
+                                                    {!! Form::open(['method' => 'DELETE', 'route' => ['post.supp',$post->Post_id]]) !!}
+                                                    {!! Form::submit('Supprimer', ['class' => 'btn btn-danger btn-block', 'onclick' => 'return confirm(\'Voulez-vous vraiment supprimer ce post ?\')']) !!}
+                                                    {!! Form::close() !!}
+                                                    </td>
+						</tr>
+                                           
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+@endsection
+
+
