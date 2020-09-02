@@ -6,12 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 class Doc extends Model
 {
-    protected $table = "document";
-  protected $primaryKey = "doc_id";
-    const CREATED_AT = "cree_le";
-    const DELETED_AT = "supprimer_le";
+    protected $table = "documents";
+    protected $primaryKey = "doc_id";
+    const CREATED_AT = "date_cree";
+    const UPDATED_AT  = "date_maj";
+    const DELETED_AT = "date_supp";
 
-    protected $fillable = ['nom','cree_par'];
+    protected $fillable = ['nom', 'user_id'];
     use SoftDeletes;
 
     public function files(){
@@ -22,7 +23,8 @@ class Doc extends Model
         }
 
     public function user(){
-		return $this->belongsTo('App\User','cree_par');
+		return $this->belongsTo('App\User','user_id');
     }
 
 }
+
