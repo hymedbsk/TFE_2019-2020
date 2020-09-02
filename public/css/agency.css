@@ -24,6 +24,19 @@ a:hover {
 .text-primary {
   color: #fed136 !important;
 }
+ 
+       .js-cookie-consent{
+  position: fixed;
+  top: 0px;
+  padding: 10px;
+  text-align: center;
+  width: 100%;
+  z-index: 9999;
+  background-color: #fffbdb;
+  border-color: #fffacc;
+  border: solid 1px;
+}
+
 
 h1,
 h2,
@@ -44,7 +57,9 @@ h6 {
   margin-top: 0;
   margin-bottom: 15px;
 }
-
+ .h-100 {
+    height: 300px!important;
+}
 .page-section h3.section-subheading {
   font-size: 16px;
   font-weight: 400;
@@ -54,7 +69,19 @@ h6 {
   font-family: 'Droid Serif', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
 }
 
-@media (min-width: 768px) {
+
+  section#annonces {
+    background-color: #212529;
+    background-image: url("../img/back_contact.jpg");
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+
+.carousel-control-next-icon , .carousel-control-prev-icon {
+    background-color: #fec503;
+ }
+
+ @media (min-width: 768px) {
   section {
     padding: 150px 0;
   }
@@ -173,7 +200,7 @@ img::-moz-selection {
 header.masthead {
   text-align: center;
   color: #fec503;
-  background-image: url("../img/che2.png");
+  background-image: url("../img/che2.webp");
   background-repeat: no-repeat;
   background-attachment: scroll;
   background-position: center center;
@@ -666,7 +693,7 @@ header.masthead .intro-text .intro-heading {
 
 section#contact {
   background-color: #212529;
-  background-image: url("../img/back_contact2.jpg");
+  background-image: url("../img/back_contact2.webp");
   background-repeat: no-repeat;
   background-position: center;
 }
